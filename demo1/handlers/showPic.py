@@ -29,7 +29,8 @@ class ShowPicHandler(tornado.web.RequestHandler):
 class Select_picHandler(tornado.web.RequestHandler):
     def post(self):
         pic_ = self.get_argument("pic_id",None)
-        print(pic_)
-        self.set_header('Access-Control-Allow-Origin', "*")
-        self.finish(json.dumps({"pic_id":pic_}))
+        path = 'data/pic_data/'+str(pic_)+'.jpg'
+        path = self.static_url(path)
+        print(path)
+        self.write({"pic_path":path})
         

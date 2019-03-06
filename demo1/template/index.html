@@ -7,14 +7,12 @@
 <div class="main">
             <div class="container">            
                 <h1>Test</h1>            
-                <div class="content">            
-                    <form method="post" action="">                
+                <div class="content">                       
                         <p>查询图片</p>    
                         <p></p>            
                         <input type="text" class="Title" id="pic_id" placeholder="输入图片名称" />                
                         <br/>                
-                        <button id="buttontonext" onClick="select_pic()"> 提交 </button>
-                    </form>
+                        <button id="buttontonext" onClick="select_pic()"> 提交 </button>               
                 </div>            
             </div>            
 </div>        
@@ -33,12 +31,9 @@
             lSendUrl('POST', 'http://localhost:12121/select',formData,
                 function(response){
                      // console.log('success get pic_id', response['pic_id']);
-                     var pic_id = response['pic_id'];
                      var pic_path = document.getElementById("pic_path")
-                     pic_path.setAttribute("src","../data/pic_data/"+pic_id+".jpg")
+                     pic_path.setAttribute("src",response["pic_path"])
                      console.log("response",response)
-                     
-
                 }
             )
             // var pic_id = document.getElementById("pic_id");
