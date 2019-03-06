@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+<div class="main">
+            <div class="container">            
+                <h1>Test</h1>            
+                <div class="content">            
+                    <form method="post" action="">                
+                        <p>查询图片</p>    
+                        <p></p>            
+                        <input type="text" class="Title" id="pic_id" placeholder="输入图片名称" />                
+                        <br/>                
+                        <button id="buttontonext" onClick="select_pic()"> 提交 </button>
+                    </form>
+                </div>            
+            </div>            
+</div>        
+<img id="pic_path" src="{{static_url('data/pic_data/1.jpg')}}">
+
+<script type="text/javascript" src="{{static_url('lib/lurlquery.js')}}"></script>
+<script type="text/javascript" src="{{static_url('lib/jquery.js')}}"></script>
+
+<script type="text/javascript">
+        select_pic =function(){
+            var self = this;
+            this.pic_id = document.getElementById("pic_id").value;
+            var formData = new FormData();
+            formData.append('pic_id',this.pic_id);
+
+            lSendUrl('POST', 'http://localhost:12121/select',formData,
+                function(response){
+                     // console.log('success get pic_id', response['pic_id']);
+                     var pic_id = response['pic_id'];
+                     var pic_path = document.getElementById("pic_path")
+                     pic_path.setAttribute("src","../data/pic_data/"+pic_id+".jpg")
+                     console.log("response",response)
+                     
+
+                }
+            )
+            // var pic_id = document.getElementById("pic_id");
+            // var request = new XMLHttpRequest();
+            // request.open("GET","localhost:12121/select?pic_id="+pic_id);
+            // request.send();
+            // request.onreadystatechange = function(){
+            //     if(request.readyState === 4){
+            //         if(request.status === 200){
+            //             var pic_path = document.getElementById("pic_path")
+            //             pic_path.setAttribute("src","../data/pic_data/"+request.responseText+".jpg")
+            //         }else{
+            //             alert("error:"+request.status);
+            //         }
+            //     }
+            // }
+        }    
+</script>
+</body>
+</html>
