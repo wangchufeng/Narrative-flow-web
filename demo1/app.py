@@ -9,7 +9,8 @@ HANDLERS = [
     (r"/api/users", user_handlers.UserListHandler),
     (r"/",showPic.ShowPicHandler),
     (r"/select",showPic.Select_picHandler),
-    (r"/start",showPic.StartHandler)
+    (r"/start",showPic.StartHandler),
+    (r"/goodpic",showPic.GoodPicHandler)
 ]
 # settings = {
 #     "static_path":"D:/Git_repository/Narrative-flow-web/demo1/data/pic_data"

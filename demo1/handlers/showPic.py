@@ -73,3 +73,13 @@ class StartHandler(BaseHandler):
             label_path.append(label_)
         self.write({"pic_path":pic_path,
             "label_path":label_path})
+
+class GoodPicHandler(tornado.web.RequestHandler):
+    def post(self):
+        pic_path = self.get_argument("pic_path")
+        print(pic_path)
+        pic_path = pic_path.split("?")[0].split("/")[-1]
+        f = open("good_pic.txt","a")
+        f.write(pic_path)
+        f.close()
+        self.write({"status":"succesSave"})
