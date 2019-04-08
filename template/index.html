@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <title>Narrativr Flow Web</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Narrative-flow-web" />
+    <meta name="keywords" content="Narrative-flow-web, deep learning, visualization" />
+    <meta name="author" content="VCC" />
+    
+    <!-- <link href="https://fonts.googleapis.com/css?family=Work+Sans" rel="stylesheet"> -->
+
+    <link rel="stylesheet" href="{{static_url('template/css/bootstrap.min.css')}}">
+    <link rel="stylesheet" href="{{static_url('template/css/open-iconic-bootstrap.min.css')}}">
+    
+    <link rel="stylesheet" href="{{static_url('template/css/owl.carousel.min.css')}}">
+    <link rel="stylesheet" href="{{static_url('template/css/owl.theme.default.min.css')}}">
+
+    <link rel="stylesheet" href="{{static_url('template/css/icomoon.css')}}">
+    <link rel="stylesheet" href="{{static_url('template/css/animate.css')}}">
+    <link rel="stylesheet" href="{{static_url('template/css/style.css')}}">
+    <style type="text/css">
+    img {width: 135px;
+        height: 135px;
+        margin: 2px;
+        border: solid;
+        border-width: 1px; 
+    }
+    #input{
+      padding: 30px;
+    }
+    select{
+        font-family: "微软雅黑";
+/*        margin:100px;*/
+        background: rgba(0,0,0,0);
+/*        width: 249px;
+        height: 40px;*/
+        font-size: 18px;
+        color: black;
+        text-align: center;
+        border: 1px #1a1a1a solid;
+        border-radius: 5px;
+    }
+    option{
+        color: black;
+        background:   #F5FFFA;
+        line-height: 20px;
+    }
+    select:focus{
+        border: 2px #ddd solid;
+        box-shadow: 0 0 15px 1px #DDDDDD;
+    }
+    option:hover{
+        background: #EBCCD1;
+    }
+
+    button {
+
+    background-color: #4CAF50;
+
+    border: none;
+
+    color: white;
+
+    padding: 10px 20px;
+
+    text-align: center;
+
+    text-decoration: none;
+
+    display: inline-block;
+
+    font-size: 16px;
+
+    margin: 4px 2px;
+
+    cursor: pointer;
+
+    }
+    .bar {
+  position: fixed; top: 0; left: 0; right: 0; /* 决定了搜索框置顶 */
+  height: 44px; padding: 0 10px;
+  background-color: #fff; opacity: 0.8; /* 搜索框半透明效果 */
+  z-index: 10;
+}
+
+.bar form {
+  display: block; padding: 0;margin: 0;
+}
+
+.search-row {
+  position: relative;
+  height: 30px; padding: 7px 0;
+}
+
+.search-row input[type=search] {
+  position: absolute; top: 7px;
+  height: 30px; line-height: 21px; width: 100%; padding: 10px 15px 10px 30px;
+  border: 0; border-radius: 6px; outline: 0; background-color: rgba(0,0,0,0.1);
+  font-size: 16px; text-align: center;
+  z-index: 100;
+}
+
+.search-row .placeholder {
+  position: absolute; top: 2px; left: 0; right: 0;
+  display: inline-block; height: 34px; line-height: 34px;
+  border: 0; border-radius: 6px;
+  font-size: 16px; text-align: center; color: #999;
+  z-index: 1; 
+}
+
+.search-row .placeholder .iconfont {
+  display: inline-block; 
+  width: 19px; 
+  line-height: 24px; 
+  padding: 10px 0;
+  font-size: 21px; 
+  color: #666;
+}
+.search-row .placeholder .text {
+  line-height: 40px;
+  vertical-align: top;
+}
+.font{
+  font-size: 19px;
+}
+    </style>
+  </head>
+  <body>
+    
+    <aside class="probootstrap-aside js-probootstrap-aside">
+    <div id="aside">
+      <a href="#" class="probootstrap-close-menu js-probootstrap-close-menu d-md-none"><span class="oi oi-arrow-left"></span> Close</a>
+      <div class="probootstrap-site-logo probootstrap-animate" data-animate-effect="fadeInLeft">
+      <br/>
+        <a href="index.html" class="mb-2 d-block probootstrap-logo" style="font-size:50px">VNF-Explorer</a>
+        <p class="font">Query Infographics by Visual Narrative Flow </p>
+        <br/> 
+        <button onclick="showallpic()">show all infographics</button>
+        <button id="buttontonext" onClick="clearCanvas()"> Reset </button>
+        <br/>
+        <br/>
+        <canvas id="c1" width="400px" height="400px" style="border-style: inset"></canvas>
+        <!-- <button id="buttontonext" onClick="draw_select()"> Query </button> -->
+        
+        <br/>
+        <br/>
+        <p>VNF Class:</p>
+            <img src="{{static_url('template/icon/clock.png')}}" style="width: 40px; height: 40px" onClick="select_pic('clock')">
+            <img src="{{static_url('template/icon/leftwing.png')}}" style="width: 40px; height: 40px" onClick="select_pic('leftwing')">
+            <img src="{{static_url('template/icon/dome.png')}}" style="width: 40px; height: 40px" onClick="select_pic('dome')">
+            <img src="{{static_url('template/icon/rightwing.png')}}" style="width: 40px; height: 40px" onClick="select_pic('rightwing')">
+            <img src="{{static_url('template/icon/bowl.png')}}" style="width: 40px; height: 40px" onClick="select_pic('bowl')">
+            <img src="{{static_url('template/icon/star.png')}}" style="width: 40px; height: 40px" onClick="select_pic('star')">
+            <br/>
+            <img src="{{static_url('template/icon/downladder.png')}}" style="width: 40px; height: 40px" onClick="select_pic('downladder')">
+            <img src="{{static_url('template/icon/landscape.png')}}" style="width: 40px; height: 40px" onClick="select_pic('landscape')">
+            <img src="{{static_url('template/icon/upladder.png')}}" style="width: 40px; height: 40px" onClick="select_pic('upladder')">
+            <img src="{{static_url('template/icon/pulse.png')}}" style="width: 40px; height: 40px" onClick="select_pic('pulse')">
+            <br/>
+            <img src="{{static_url('template/icon/leftarm.png')}}" style="width: 40px; height: 40px" onClick="select_pic('leftarm')">
+            <img src="{{static_url('template/icon/portrait.png')}}" style="width: 40px; height: 40px" onClick="select_pic('portrait')">
+            <img src="{{static_url('template/icon/rightarm.png')}}" style="width: 40px; height: 40px" onClick="select_pic('rightarm')">
+            <img src="{{static_url('template/icon/screw.png')}}" style="width: 40px; height: 40px" onClick="select_pic('screw')">
+            <br/>
+            <br/>
+      <span class="font">Visual Group Number: &nbsp;</span>
+      <input type="text" id="pic_flow" placeholder="Enter the seed of the image" />
+<!--       <br/>
+      <br/>
+      <span class="font">Textbox Orientation: &nbsp;</span>
+      <input type="radio" name="radio_1" value="1"> &nbsp;<span class="font">landscape</span> &nbsp;
+      <input type="radio" name="radio_1" value="2"> &nbsp;<span class="font">portrait </span>&nbsp; -->
+      <br/>
+      <br/>
+      <span class="font">Number Index: &nbsp;</span>
+      <input type="radio" name="radio_2" value="1"> &nbsp;<span class="font">yes </span>&nbsp;
+      <input type="radio" name="radio_2" value="2"> &nbsp;<span class="font">no </span>&nbsp;
+      <br/>
+      <br/>
+      <button id="buttontonext" onClick="query()"> Query </button>
+      </div>
+      
+      
+      <div class="probootstrap-overflow">
+
+<!--         <nav class="probootstrap-nav">
+          <ul>
+            <li class="probootstrap-animate active" data-animate-effect="fadeInLeft"><a href="index.html">Home</a></li>
+            <li class="probootstrap-animate" data-animate-effect="fadeInLeft"><a href="about.html">About</a></li>
+            <li class="probootstrap-animate" data-animate-effect="fadeInLeft"><a href="services.html">Services</a></li>
+            <li class="probootstrap-animate" data-animate-effect="fadeInLeft"><a href="portfolio.html">Portfolio</a></li>
+            <li class="probootstrap-animate" data-animate-effect="fadeInLeft"><a href="contact.html">Contact</a></li>
+          </ul>
+        </nav> -->
+        <div id="input">
+
+        <!-- <p>More Criteria</p> -->
+        
+<!--         <select id = "pic_flow">
+          <option value ="bowl">bowl</option>
+          <option value ="clock">clock</option>
+          <option value="dome">dome</option>
+          <option value="downladder">downladder</option>
+          <option value="landscape">landscape</option>
+          <option value="leftarm">leftarm</option>
+          <option value="leftwing">leftwing</option>
+          <option value="portrait">portrait</option>
+          <option value="pulse">pulse</option>
+          <option value="rightarm">rightarm</option>
+          <option value="rightwing">rightwing</option>
+          <option value="screw">screw</option>
+          <option value="star">star</option>
+          <option value="upladder">upladder</option>
+        </select> -->
+        <div>
+            
+        
+       <!--  <input type="text" id="pic_id" placeholder="Enter the name of the image" /> <p>*Theme Position</p> -->
+
+        <!-- <input type="text" id="pic_flow" placeholder="Enter the flow of the image" /> <p>*Content Placement</p> -->
+        
+        
+        <!-- <input type="text" id="seed_id" placeholder="Enter the seed_id of the image" /> -->
+<!--         <select id = "seed_id">
+          <option value ="null">null</option>
+          <option value ="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+          <option value="7">7</option>
+          <option value="8">8</option>
+          <option value="9">9</option>
+        </select> -->
+        <!-- <input type="text" id="similar_pic" placeholder="Enter the name of the image" /> <p></p> -->
+        
+        </div>
+<!--         <input type="text" id="pic_id" placeholder="Enter the name of the image" />
+        <br/> 
+        <input type="text" id="pic_id" placeholder="Enter the name of the image" />                
+        <br/>      -->           
+          
+
+        <footer class="probootstrap-aside-footer probootstrap-animate" data-animate-effect="fadeInLeft">
+          <ul class="list-unstyled d-flex probootstrap-aside-social">
+<!--             <li><a href="#" class="p-2"><span class="icon-twitter"></span></a></li>
+            <li><a href="#" class="p-2"><span class="icon-instagram"></span></a></li>
+            <li><a href="#" class="p-2"><span class="icon-dribbble"></span></a></li> -->
+          </ul>
+          <p>&nbsp;&copy; 2019 Narrative Flow Web. <br> </p>
+        </footer>
+      </div>
+      </div>
+    </aside>
+
+
+    <main role="main" class="probootstrap-main js-probootstrap-main">
+    <!-- 搜索框 -->
+        <header class="bar">
+            <div class="search-row">
+              <input type="search" name="word" id="word">
+              <span class="placeholder "><span id="text">info:</span></span>
+            </div>
+        </header>
+
+      <div class="probootstrap-bar">
+        <a href="#" class="probootstrap-toggle js-probootstrap-toggle"><span class="oi oi-menu"></span></a>
+        <div class="probootstrap-main-site-logo"><a href="index.html">Aside</a></a></div>
+      </div>
+      <div id="card-columns">
+        <!-- <div class="card">
+          <a href="single.html">
+          <img class="card-img-top probootstrap-animate" src="images/img_1.jpg" alt="Card image cap" data-animate-effect="fadeIn">
+          </a>
+        </div>
+        <div class="card">
+          <a href="single.html">
+            <img class="card-img-top probootstrap-animate" src="images/img_21.jpg" alt="Card image cap" data-animate-effect="fadeIn">
+          </a>
+        </div> -->
+      </div>  
+	<div class="tlinks">Collect from <a href="http://www.cssmoban.com/" >网页模板</a></div>
+
+      <div class="container-fluid d-md-none">
+        <div class="row">
+          <div class="col-md-12">
+            <ul class="list-unstyled d-flex probootstrap-aside-social">
+              <li><a href="#" class="p-2"><span class="icon-twitter"></span></a></li>
+              <li><a href="#" class="p-2"><span class="icon-instagram"></span></a></li>
+              <li><a href="#" class="p-2"><span class="icon-dribbble"></span></a></li>
+            </ul>
+            <p>&copy; 2019 Narrative Flow Web <br> </p>
+          </div>
+        </div>
+      </div>
+
+    </main>
+
+    <script type="text/javascript" src="{{static_url('lib/jquery.js')}}"></script>
+    <!-- <script src="{{static_url('template/js/jquery-3.2.1.slim.min.js')}}"></script> -->
+    <script src="{{static_url('template/js/popper.min.js')}}"></script>
+    <script src="{{static_url('template/js/bootstrap.min.js')}}"></script>
+    <script src="{{static_url('template/js/owl.carousel.min.js')}}"></script>
+    <script src="{{static_url('template/js/jquery.waypoints.min.js')}}"></script>
+    <script src="{{static_url('template/js/imagesloaded.pkgd.min.js')}}"></script>
+    <!-- <script src="js/imagesloaded.pkgd.min.js"></script> -->
+    <script src="{{static_url('template/js/main.js')}}"></script>
+
+
+
+    <script type="text/javascript" src="{{static_url('lib/lurlquery.js')}}"></script>
+    <script type="text/javascript">
+      imglist = [];
+      category_now="";
+      is_draw = "no";
+      function showallpic(){
+        var formData = new FormData();
+
+        lSendUrl('POST', 'http://localhost:12121/showallpic',formData,
+                function(response){
+                  document.getElementById('card-columns').innerHTML="";
+                  console.log(response['status']);
+                  imglist = response['imglist'];
+                  // console.log('<img src="' + imglist[0]+'"' + ' style="width:100px;height:100px"'+ ' class="card-img-top probootstrap-animate"' +' />')
+                  for(var i=0;i<204;i++){
+                    
+                    document.getElementById('card-columns').innerHTML += '<img src=' + imglist[i] + 'style="width:100px;height:100px"'+ 'class="card-img-top probootstrap-animate"' +' />'
+                  }
+                  $("#text").html("Info: show all infographics ");
+                  AddImgClickEvent();
+                }
+            )
+        
+      }
+
+
+
+      function select_pic(pic_flow){
+        //  清除页面元素
+        document.getElementById('card-columns').innerHTML="";
+
+        // var pic_id = document.getElementById("pic_id").value;
+        var seed_id = "null";
+        // var obj = document.getElementById("pic_flow");
+        // var index = obj.selectedIndex;
+        // var pic_flow = obj.options[index].text;
+        var pic_flow = pic_flow;
+        category_now =pic_flow;
+        console.log(pic_flow)
+        // var obj_1 = document.getElementById("seed_id");
+        // var index_1 = obj_1.selectedIndex;
+        // var seed_id = obj_1.options[index_1].text;
+        // var similar_pic = document.getElementById("similar_pic").value;
+
+        // 寻找单张图片
+        // if(pic_id){
+        //   var formData = new FormData();
+        //   formData.append("pic_id",pic_id)
+        //   lSendUrl('POST', 'http://localhost:12121/onepic',formData,
+        //       function(response){
+        //         console.log(response['status']);
+        //         if(response['status']=="true"){
+        //           document.getElementById('card-columns').innerHTML += '<img src=' + response['pic_id'] + 'style="width:100px;height:100px"'+ 'class="card-img-top probootstrap-animate"' +' />'
+        //         }else{
+        //           alert("not found pic")
+        //         }
+        //       }
+        //     )
+        // }else{
+        //   console.log("the pic_id is null");
+        // }
+
+        // 搜索某种叙事流
+        if(pic_flow){
+          var formData = new FormData();
+          formData.append("pic_flow",pic_flow)
+          if(seed_id != "null"){
+            formData.append("seed_id",seed_id)
+          }else{
+            formData.append("seed_id","none")
+          }
+          lSendUrl('POST', 'http://localhost:12121/picflow',formData,
+              function(response){
+                console.log(response['status']);
+
+                if(response['status']=="true"){
+                  var imglist = response['categorylist'];
+                  if(category_now != ""){
+                  $("#text").html("Info: category: "+category_now);
+                 }
+
+                  document.getElementById('card-columns').innerHTML="";
+                  for(var i=0;i<imglist.length;i++){
+                    document.getElementById('card-columns').innerHTML += '<img src=' + imglist
+                    [i] + 'style="width:100px;height:100px"'+ 'class="card-img-top probootstrap-animate"' +' />'
+                  }
+
+                }else{
+                  alert("not found pic")
+                }
+
+                
+              }
+          )
+        }
+        //寻找相似图片
+        // if(similar_pic){
+        //   var formData = new FormData();
+        //   formData.append("similar_pic",similar_pic)
+        //   lSendUrl('POST', 'http://localhost:12121/similar_pic',formData,
+        //       function(response){
+        //         console.log(response['img_list']);
+        //         for(var i=0;i<100;i++){
+        //             document.getElementById('card-columns').innerHTML += '<img src=' + response['img_list'][i] + 'style="width:100px;height:100px"'+ 'class="card-img-top probootstrap-animate"' +' />'
+        //           }
+        //       }
+        //     )
+        // }
+      }
+
+      function query(){
+        if(is_draw == "yes"){
+          var Group_Number = document.getElementById("pic_flow").value;
+          // var Textbox_Orientation = $('input[name="radio_1"]:checked').val(); 
+          var Number_Index= $('input[name="radio_2"]:checked').val(); 
+          console.log(Number_Index);
+          draw_select(Group_Number,Number_Index);
+        }else{
+          if(category_now != ""){
+            var Group_Number = document.getElementById("pic_flow").value;
+            // var Textbox_Orientation = $('input[name="radio_1"]:checked').val();
+            var Number_Index= $('input[name="radio_2"]:checked').val(); 
+
+            var formData = new FormData();
+            formData.append("category_now",category_now)
+            formData.append("Group_Number",Group_Number)
+            // formData.append("Textbox_Orientation",Textbox_Orientation)
+            formData.append("Number_Index",Number_Index)
+            lSendUrl('POST', 'http://localhost:12121/query',formData,
+              function(response){
+                document.getElementById('card-columns').innerHTML="";
+                for(var i=0;i<response['pic_list'].length;i++){
+                  document.getElementById('card-columns').innerHTML += '<img src=' + response['pic_list'][i] + 'style="width:100px;height:100px"'+ 'class="card-img-top probootstrap-animate"' +' />'
+                }             
+              }
+            )
+
+            if(Group_Number != "" && Textbox_Orientation && Number_Index && category_now != ""){
+                  $("#text").html("Info: category: "+category_now+" Group_Number: "+Group_Number + " Textbox_Orientation: "+Textbox_Orientation+" Number_Index: "+Number_Index);
+            }
+            if(category_now != "" && Group_Number != "" && Textbox_Orientation){
+              $("#text").html("Info: category: "+category_now+" Group_Number: "+Group_Number + " Textbox_Orientation: "+Textbox_Orientation);
+            }
+            if(Group_Number != ""){
+              console.log(Group_Number)
+              $("#text").html("Info: category: "+category_now +" Group_Number: "+Group_Number);
+            }
+            if(category_now != ""){
+              $("#text").html("Info: category: "+category_now);
+            }
+          }
+        }
+
+      }
+
+
+    </script>
+
+<script type="text/javascript">
+
+  window.onload = function() {
+  　　var oC = document.getElementById('c1');
+  　　var oCG = oC.getContext('2d');
+      oCG.fillStyle =  "#FFFFFF";
+      oCG.fillRect(0,0,400,400);
+      oCG.lineWidth=50;
+  　　oC.onmousedown = function(ev) {
+      var ev = ev || window.event;
+      oCG.moveTo(ev.clientX-oC.offsetLeft,ev.clientY-oC.offsetTop); //ev.clientX-oC.offsetLeft,ev.clientY-oC.offsetTop鼠标在当前画布上X,Y坐标
+      document.onmousemove = function(ev) {
+          var ev = ev || window.event;//获取event对象
+          oCG.lineTo(ev.clientX-oC.offsetLeft,ev.clientY-oC.offsetTop);
+          oCG.stroke();
+          };
+      oC.onmouseup = function() {
+          is_draw ="yes";
+          document.onmousemove = null;
+          document.onmouseup = null;
+          };
+  　　　　};
+  };
+  function draw_select(Group_Number,Number_Index){
+    var cxt = document.getElementById('c1');
+  　var cxt = cxt.getContext('2d');
+    var data = cxt.getImageData(0, 0, 400, 400).data
+    console.log(data)
+    var formData = new FormData();
+    formData.append("data",data)
+    formData.append("Group_Number",Group_Number)
+    // formData.append("Textbox_Orientation",Textbox_Orientation)
+    formData.append("Number_Index",Number_Index)
+
+    lSendUrl('POST', 'http://localhost:12121/draw_select',formData,
+        function(response){
+          document.getElementById('card-columns').innerHTML="";
+          imglist = response['pic_list']
+          for(var i=0;i<response['pic_list'].length;i++){
+                  document.getElementById('card-columns').innerHTML += '<img src=' + response['pic_list'][i] + 'style="width:100px;height:100px"'+ 'class="card-img-top probootstrap-animate"' +' />'
+                }
+          $("#text").html("Info: Here are 300 infographics");
+        }
+    )
+  }
+
+  function clearCanvas(){  
+      var c=document.getElementById("c1");
+      c.width=c.width;
+      var c = c.getContext('2d');
+      c.fillStyle =  "#FFFFFF";
+      c.fillRect(0,0,400,400);
+      c.lineWidth=50;
+      is_draw ="no"
+  }  
+</script>
+
+<script type="text/javascript">
+function AddImgClickEvent(){
+  var objs = document.getElementById("card-columns").getElementsByTagName("img");           
+  for(var i=0;i<objs.length;i++){
+    objs[i].onclick=function(){
+      var file_name = this.src;
+      var formData = new FormData();
+      formData.append("file_name",file_name)
+      document.getElementById('card-columns').innerHTML="";
+      document.getElementById('card-columns').innerHTML += '<img src=' + this.src + 'style="width:100px;height:100px"'+ 'class="card-img-top probootstrap-animate"' +' />'
+      lSendUrl('POST', 'http://localhost:12121/click_pic',formData,
+        function(response){
+          console.log(response['status']);
+          console.log(response['pic_list']);
+          for(var i=0;i<response['pic_list'].length;i++){
+            document.getElementById('card-columns').innerHTML += '<img src=' + response['pic_list'][i] + 'style="width:100px;height:100px"'+ 'class="card-img-top probootstrap-animate"' +' />'
+          }
+          $("#text").html("Info: The following is a similar infographics of the first infographics");  
+        }
+      )
+    }
+  }
+}
+
+
+</script>
+
+    
+  </body>
+</html>
