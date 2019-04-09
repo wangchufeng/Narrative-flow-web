@@ -125,6 +125,10 @@
 .font{
   font-size: 19px;
 }
+.VNF_Class{
+  width: 40px;
+  height: 40px;
+}
     </style>
   </head>
   <body>
@@ -147,22 +151,22 @@
         <br/>
         <br/>
         <p>VNF Class:</p>
-            <img src="{{static_url('template/icon/clock.png')}}" style="width: 40px; height: 40px" onClick="select_pic('clock')">
-            <img src="{{static_url('template/icon/leftwing.png')}}" style="width: 40px; height: 40px" onClick="select_pic('leftwing')">
-            <img src="{{static_url('template/icon/dome.png')}}" style="width: 40px; height: 40px" onClick="select_pic('dome')">
-            <img src="{{static_url('template/icon/rightwing.png')}}" style="width: 40px; height: 40px" onClick="select_pic('rightwing')">
-            <img src="{{static_url('template/icon/bowl.png')}}" style="width: 40px; height: 40px" onClick="select_pic('bowl')">
-            <img src="{{static_url('template/icon/star.png')}}" style="width: 40px; height: 40px" onClick="select_pic('star')">
+            <img class = "VNF_Class" id = "clock" src="{{static_url('template/icon/clock.png')}}" onClick="select_pic('clock')">
+            <img class = "VNF_Class" id = "leftwing" src="{{static_url('template/icon/leftwing.png')}}" onClick="select_pic('leftwing')">
+            <img class = "VNF_Class" id = "dome" src="{{static_url('template/icon/dome.png')}}" onClick="select_pic('dome')">
+            <img class = "VNF_Class" id = "rightwing" src="{{static_url('template/icon/rightwing.png')}}" onClick="select_pic('rightwing')">
+            <img class = "VNF_Class" id = "bowl" src="{{static_url('template/icon/bowl.png')}}" onClick="select_pic('bowl')">
+            <img class = "VNF_Class" id = "star" src="{{static_url('template/icon/star.png')}}" onClick="select_pic('star')">
             <br/>
-            <img src="{{static_url('template/icon/downladder.png')}}" style="width: 40px; height: 40px" onClick="select_pic('downladder')">
-            <img src="{{static_url('template/icon/landscape.png')}}" style="width: 40px; height: 40px" onClick="select_pic('landscape')">
-            <img src="{{static_url('template/icon/upladder.png')}}" style="width: 40px; height: 40px" onClick="select_pic('upladder')">
-            <img src="{{static_url('template/icon/pulse.png')}}" style="width: 40px; height: 40px" onClick="select_pic('pulse')">
+            <img class = "VNF_Class" id = "downladder" src="{{static_url('template/icon/downladder.png')}}" onClick="select_pic('downladder')">
+            <img class = "VNF_Class" id = "landscape" src="{{static_url('template/icon/landscape.png')}}" onClick="select_pic('landscape')">
+            <img class = "VNF_Class" id = "upladder" src="{{static_url('template/icon/upladder.png')}}" onClick="select_pic('upladder')">
+            <img class = "VNF_Class" id = "pulse" src="{{static_url('template/icon/pulse.png')}}" onClick="select_pic('pulse')">
             <br/>
-            <img src="{{static_url('template/icon/leftarm.png')}}" style="width: 40px; height: 40px" onClick="select_pic('leftarm')">
-            <img src="{{static_url('template/icon/portrait.png')}}" style="width: 40px; height: 40px" onClick="select_pic('portrait')">
-            <img src="{{static_url('template/icon/rightarm.png')}}" style="width: 40px; height: 40px" onClick="select_pic('rightarm')">
-            <img src="{{static_url('template/icon/screw.png')}}" style="width: 40px; height: 40px" onClick="select_pic('screw')">
+            <img class = "VNF_Class" id = "leftarm" src="{{static_url('template/icon/leftarm.png')}}" onClick="select_pic('leftarm')">
+            <img class = "VNF_Class" id = "portrait" src="{{static_url('template/icon/portrait.png')}}" onClick="select_pic('portrait')">
+            <img class = "VNF_Class" id = "rightarm" src="{{static_url('template/icon/rightarm.png')}}" onClick="select_pic('rightarm')">
+            <img class = "VNF_Class" id = "screw" src="{{static_url('template/icon/screw.png')}}" onClick="select_pic('screw')">
             <br/>
             <br/>
       <span class="font">Visual Group Number: &nbsp;</span>
@@ -183,61 +187,7 @@
       </div>
       
       
-      <div class="probootstrap-overflow">
 
-<!--         <nav class="probootstrap-nav">
-          <ul>
-            <li class="probootstrap-animate active" data-animate-effect="fadeInLeft"><a href="index.html">Home</a></li>
-            <li class="probootstrap-animate" data-animate-effect="fadeInLeft"><a href="about.html">About</a></li>
-            <li class="probootstrap-animate" data-animate-effect="fadeInLeft"><a href="services.html">Services</a></li>
-            <li class="probootstrap-animate" data-animate-effect="fadeInLeft"><a href="portfolio.html">Portfolio</a></li>
-            <li class="probootstrap-animate" data-animate-effect="fadeInLeft"><a href="contact.html">Contact</a></li>
-          </ul>
-        </nav> -->
-        <div id="input">
-
-        <!-- <p>More Criteria</p> -->
-        
-<!--         <select id = "pic_flow">
-          <option value ="bowl">bowl</option>
-          <option value ="clock">clock</option>
-          <option value="dome">dome</option>
-          <option value="downladder">downladder</option>
-          <option value="landscape">landscape</option>
-          <option value="leftarm">leftarm</option>
-          <option value="leftwing">leftwing</option>
-          <option value="portrait">portrait</option>
-          <option value="pulse">pulse</option>
-          <option value="rightarm">rightarm</option>
-          <option value="rightwing">rightwing</option>
-          <option value="screw">screw</option>
-          <option value="star">star</option>
-          <option value="upladder">upladder</option>
-        </select> -->
-        <div>
-            
-        
-       <!--  <input type="text" id="pic_id" placeholder="Enter the name of the image" /> <p>*Theme Position</p> -->
-
-        <!-- <input type="text" id="pic_flow" placeholder="Enter the flow of the image" /> <p>*Content Placement</p> -->
-        
-        
-        <!-- <input type="text" id="seed_id" placeholder="Enter the seed_id of the image" /> -->
-<!--         <select id = "seed_id">
-          <option value ="null">null</option>
-          <option value ="1">1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-          <option value="4">4</option>
-          <option value="5">5</option>
-          <option value="6">6</option>
-          <option value="7">7</option>
-          <option value="8">8</option>
-          <option value="9">9</option>
-        </select> -->
-        <!-- <input type="text" id="similar_pic" placeholder="Enter the name of the image" /> <p></p> -->
-        
-        </div>
 <!--         <input type="text" id="pic_id" placeholder="Enter the name of the image" />
         <br/> 
         <input type="text" id="pic_id" placeholder="Enter the name of the image" />                
@@ -318,7 +268,10 @@
       is_draw = "no";
       function showallpic(){
         var formData = new FormData();
-
+        var vnf_class = document.getElementsByClassName("VNF_Class")
+        for(i=0;i<vnf_class.length;i++){
+          vnf_class[i].style = "border: solid 1px black; width: 40px; height: 40px";
+        }
         lSendUrl('POST', 'http://localhost:12121/showallpic',formData,
                 function(response){
                   document.getElementById('card-columns').innerHTML="";
@@ -349,6 +302,11 @@
         // var pic_flow = obj.options[index].text;
         var pic_flow = pic_flow;
         category_now =pic_flow;
+        var vnf_class = document.getElementsByClassName("VNF_Class")
+        for(i=0;i<vnf_class.length;i++){
+          vnf_class[i].style = "border: solid 1px black; width: 40px; height: 40px";
+        }
+        document.getElementById(pic_flow).style = "border: solid 5px red; width: 40px; height: 40px";
         console.log(pic_flow)
         // var obj_1 = document.getElementById("seed_id");
         // var index_1 = obj_1.selectedIndex;
@@ -534,12 +492,11 @@ function AddImgClickEvent(){
       var file_name = this.src;
       var formData = new FormData();
       formData.append("file_name",file_name)
+      
       document.getElementById('card-columns').innerHTML="";
-      document.getElementById('card-columns').innerHTML += '<img src=' + this.src + 'style="width:100px;height:100px"'+ 'class="card-img-top probootstrap-animate"' +' />'
+      document.getElementById('card-columns').innerHTML +='<img id="first" style="border:solid 5px red;" src=' + this.src +'class="card-img-top probootstrap-animate"' +' />'
       lSendUrl('POST', 'http://localhost:12121/click_pic',formData,
         function(response){
-          console.log(response['status']);
-          console.log(response['pic_list']);
           for(var i=0;i<response['pic_list'].length;i++){
             document.getElementById('card-columns').innerHTML += '<img src=' + response['pic_list'][i] + 'style="width:100px;height:100px"'+ 'class="card-img-top probootstrap-animate"' +' />'
           }
@@ -549,7 +506,6 @@ function AddImgClickEvent(){
     }
   }
 }
-
 
 </script>
 
