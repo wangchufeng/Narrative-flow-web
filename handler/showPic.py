@@ -7,7 +7,6 @@ import heapq
 from PIL import Image
 import shutil
 from sklearn.decomposition import PCA
-import cv2
 class ShowPicHandler(tornado.web.RequestHandler):
     def get(self):
         self.render("index.html")

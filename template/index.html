@@ -9,7 +9,7 @@
     <meta name="keywords" content="Narrative-flow-web, deep learning, visualization" />
     <meta name="author" content="VCC" />
     
-    <!-- <link href="https://fonts.googleapis.com/css?family=Work+Sans" rel="stylesheet"> -->
+    <link href="https://fonts.googleapis.com/css?family=Work+Sans" rel="stylesheet">
 
     <link rel="stylesheet" href="{{static_url('template/css/bootstrap.min.css')}}">
     <link rel="stylesheet" href="{{static_url('template/css/open-iconic-bootstrap.min.css')}}">
@@ -20,6 +20,8 @@
     <link rel="stylesheet" href="{{static_url('template/css/icomoon.css')}}">
     <link rel="stylesheet" href="{{static_url('template/css/animate.css')}}">
     <link rel="stylesheet" href="{{static_url('template/css/style.css')}}">
+
+
     <style type="text/css">
     img {width: 135px;
         height: 135px;
@@ -272,7 +274,7 @@
         for(i=0;i<vnf_class.length;i++){
           vnf_class[i].style = "border: solid 1px black; width: 40px; height: 40px";
         }
-        lSendUrl('POST', 'http://localhost:12121/showallpic',formData,
+        lSendUrl('POST', 'http://localhost:8088/showallpic',formData,
                 function(response){
                   document.getElementById('card-columns').innerHTML="";
                   console.log(response['status']);
@@ -317,7 +319,7 @@
         // if(pic_id){
         //   var formData = new FormData();
         //   formData.append("pic_id",pic_id)
-        //   lSendUrl('POST', 'http://localhost:12121/onepic',formData,
+        //   lSendUrl('POST', 'http://localhost:8088/onepic',formData,
         //       function(response){
         //         console.log(response['status']);
         //         if(response['status']=="true"){
@@ -340,7 +342,7 @@
           }else{
             formData.append("seed_id","none")
           }
-          lSendUrl('POST', 'http://localhost:12121/picflow',formData,
+          lSendUrl('POST', 'http://localhost:8088/picflow',formData,
               function(response){
                 console.log(response['status']);
 
@@ -368,7 +370,7 @@
         // if(similar_pic){
         //   var formData = new FormData();
         //   formData.append("similar_pic",similar_pic)
-        //   lSendUrl('POST', 'http://localhost:12121/similar_pic',formData,
+        //   lSendUrl('POST', 'http://localhost:8088/similar_pic',formData,
         //       function(response){
         //         console.log(response['img_list']);
         //         for(var i=0;i<100;i++){
@@ -397,7 +399,7 @@
             formData.append("Group_Number",Group_Number)
             // formData.append("Textbox_Orientation",Textbox_Orientation)
             formData.append("Number_Index",Number_Index)
-            lSendUrl('POST', 'http://localhost:12121/query',formData,
+            lSendUrl('POST', 'http://localhost:8088/query',formData,
               function(response){
                 document.getElementById('card-columns').innerHTML="";
                 for(var i=0;i<response['pic_list'].length;i++){
@@ -461,7 +463,7 @@
     // formData.append("Textbox_Orientation",Textbox_Orientation)
     formData.append("Number_Index",Number_Index)
 
-    lSendUrl('POST', 'http://localhost:12121/draw_select',formData,
+    lSendUrl('POST', 'http://localhost:8088/draw_select',formData,
         function(response){
           document.getElementById('card-columns').innerHTML="";
           imglist = response['pic_list']
@@ -495,7 +497,7 @@ function AddImgClickEvent(){
       
       document.getElementById('card-columns').innerHTML="";
       document.getElementById('card-columns').innerHTML +='<img id="first" style="border:solid 5px red;" src=' + this.src +'class="card-img-top probootstrap-animate"' +' />'
-      lSendUrl('POST', 'http://localhost:12121/click_pic',formData,
+      lSendUrl('POST', 'http://localhost:8088/click_pic',formData,
         function(response){
           for(var i=0;i<response['pic_list'].length;i++){
             document.getElementById('card-columns').innerHTML += '<img src=' + response['pic_list'][i] + 'style="width:100px;height:100px"'+ 'class="card-img-top probootstrap-animate"' +' />'
