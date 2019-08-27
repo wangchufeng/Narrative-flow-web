@@ -28,7 +28,7 @@ h1, h2, h3, h4, h5,
 
 .probootstrap-aside {
   height: 100vh;
-  width: 490px;
+  width: 23%;
   position: fixed;
   top: 0;
   float: left;
@@ -125,9 +125,11 @@ h1, h2, h3, h4, h5,
     color: #1FAD9F; }
 
 .probootstrap-main {
-  width: calc(100% - 470px);
+  /* width: calc(100% - 470px); */
+  width: 76%;
+  top: 40px;
   float: right;
-  padding: 30px;
+  padding: 2px;
   position: relative; 
   background: #F8F8FF;
 }

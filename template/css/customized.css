@@ -1,0 +1,109 @@
+img {width: 135px;
+    height: 135px;
+    margin: 2px;
+    border: solid;
+    border-width: 1px; 
+}
+#input{
+  padding: 30px;
+}
+select{
+    font-family: "微软雅黑";
+/*        margin:100px;*/
+    background: rgba(0,0,0,0);
+/*        width: 249px;
+    height: 40px;*/
+    font-size: 18px;
+    color: black;
+    text-align: center;
+    border: 1px #1a1a1a solid;
+    border-radius: 5px;
+}
+option{
+    color: black;
+    background:   #F5FFFA;
+    line-height: 20px;
+}
+select:focus{
+    border: 2px #ddd solid;
+    box-shadow: 0 0 15px 1px #DDDDDD;
+}
+option:hover{
+    background: #EBCCD1;
+}
+
+button {
+
+background-color: #4CAF50;
+
+border: none;
+
+color: white;
+
+padding: 10px 20px;
+
+text-align: center;
+
+text-decoration: none;
+
+display: inline-block;
+
+font-size: 0.8vw;
+
+margin: 4px 2px;
+
+cursor: pointer;
+
+}
+.bar {
+position: fixed; top: 0; left: 0; right: 0; /* 决定了搜索框置顶 */
+height: 44px; padding: 0 10px;
+background-color: #fff; opacity: 0.8; /* 搜索框半透明效果 */
+z-index: 10;
+}
+
+.bar form {
+display: block; padding: 0;margin: 0;
+}
+
+.search-row {
+position: relative;
+height: 30px; padding: 7px 0;
+}
+
+.search-row input[type=search] {
+position: absolute; top: 7px;
+height: 30px; line-height: 21px; width: 100%; padding: 10px 15px 10px 30px;
+border: 0; border-radius: 6px; outline: 0; background-color: rgba(0,0,0,0.1);
+font-size: 16px; text-align: center;
+z-index: 100;
+}
+
+.search-row .placeholder {
+position: absolute; top: 2px; left: 0; right: 0;
+display: inline-block; height: 34px; line-height: 34px;
+border: 0; border-radius: 6px;
+font-size: 16px; text-align: center; color: #999;
+z-index: 1; 
+}
+
+.search-row .placeholder .iconfont {
+display: inline-block; 
+width: 19px; 
+line-height: 24px; 
+padding: 10px 0;
+font-size: 21px; 
+color: #666;
+}
+.search-row .placeholder .text {
+line-height: 40px;
+vertical-align: top;
+}
+.font{
+font-size: 19px;
+}
+.VNF_Class{
+width: 40px;
+height: 40px;
+}
+
