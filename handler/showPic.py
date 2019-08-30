@@ -1,3 +1,4 @@
+import imagehash
 import tornado.web
 import glob
 import csv
@@ -137,6 +138,8 @@ class ShowSimilarPicHandler(tornado.web.RequestHandler):
 
 
 class ShowDrawSelectHandler(tornado.web.RequestHandler):
+    vnf_flow_path = "./template/icon/*.png"
+
     def post(self):
         #降采样
         data = self.get_argument("data")
@@ -150,28 +153,50 @@ class ShowDrawSelectHandler(tornado.web.RequestHandler):
         gray=im.convert('L')
         gray.save("1.jpg")
         pic = np.array(gray)
-        print(pic.shape)
+        im.show()
+        im_hash = self.read_vnf_flow_hash(im)
 
-        pic = pic.reshape(10000,)
+        # self.read_csv(pic)
+        # pic_list = self.compute_pca(Group_Number,Number_Index)
+
+        # self.write({"status": "ok", "pic_list": pic_list})
+        self.write({"status": "ok"})
+
+    def hammingDistance(x, y):
+        x = int(str(x), 16)
+        y = int(str(y), 16)
+        hamming_distance = 0
+        s = str(bin(x ^ y))
+        for i in range(2, len(s)):
+            if int(s[i]) is 1:
+                hamming_distance += 1
+        a = 1 - hamming_distance / 64
+        return a
+
+    def read_vnf_flow_hash(self, filename):
+        hash_str = imagehash.dhash(Image.open(filename))
+        return hash_str
+
+    def similarest_pic(self, n):
+        max_num_index_list = map(n.index, heapq.nlargest(3, n))  # 求出相似最高的前三个
+        _index = list(max_num_index_list)
+        return _index
+
+    def read_csv(self, pic):
+        pic = pic.reshape(10000, )
         pic = pic.tolist()
-
-        file =open('./template/data/pixel.csv','r')
-        lines=file.readlines()
-        str_0 = len(lines)-1
+        file = open('./template/data/pixel.csv', 'r')
+        lines = file.readlines()
+        str_0 = len(lines) - 1
         file.close()
-
-        file =open('./template/data/pixel.csv','a')
-        csv_write = csv.writer(file,dialect='excel')
-        pic.insert(0,str_0)
+        file = open('./template/data/pixel.csv', 'a')
+        csv_write = csv.writer(file, dialect='excel')
+        pic.insert(0, str_0)
         pic.append("test")
         csv_write.writerow(pic)
         file.close()
-        pic_list = self.compute_pca(Group_Number,Number_Index)
 
-        self.write({"status":"ok","pic_list":pic_list})
-
-    def compute_pca(self,Group_Number,Number_Index):
-
+    def compute_pca(self, Group_Number, Number_Index):
         CSV_FILE_PATH = './template/data/pixel.csv'
         df = pd.read_csv(CSV_FILE_PATH)
         img_list = df['imgName'].values
@@ -196,7 +221,7 @@ class ShowDrawSelectHandler(tornado.web.RequestHandler):
             for x in range(4-len(img)):
                 img="0"+img
 
-            if Group_Number != "":
+            if Group_Number != "undefined":
                 seed_number = []
                 group_txt = "template/data/group_txt/"+img+"_group.txt"
                 group_txt = open(group_txt,"r")

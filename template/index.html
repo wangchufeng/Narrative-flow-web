@@ -26,21 +26,21 @@
     <aside class="probootstrap-aside js-probootstrap-aside">
     <div id="aside">
       <a href="#" class="probootstrap-close-menu js-probootstrap-close-menu d-md-none"><span class="oi oi-arrow-left"></span> Close</a>
-      <div class="probootstrap-site-logo probootstrap-animate" data-animate-effect="fadeInLeft">
+      <div id = "aside_content" class="probootstrap-site-logo probootstrap-animate" data-animate-effect="fadeInLeft">
       <br/>
-        <a href="index.html" class="mb-2 d-block probootstrap-logo" style="font-size:2.4vw">VNF-Explorer</a>
+        <a href="index.html" class="mb-2 d-block probootstrap-logo" style="font-size:2vw">VNF-Explorer</a>
         <p class="font" style="font-size:0.9vw" >Query Infographics by Visual Narrative Flow </p>
         <br/> 
         <button onclick="showallpic()">show all infographics</button>
-        <!-- <button id="buttontonext" onClick="clearCanvas()"> Reset </button> -->
+         <button id="buttontonext" onClick="clearCanvas()"> Reset </button>
         <br/>
         <br/>
-        <!-- <canvas id="c1" width="400px" height="400px" style="border-style: inset"></canvas> -->
-        <!-- <button id="buttontonext" onClick="draw_select()"> Query </button> -->
+         <canvas id="c1" style="border-style: inset" width="400px" height="400px"></canvas>
+         <button id="buttontonext" onClick="draw_select()"> Query </button>
         
         <br/>
         <br/>
-        <p style="font:0.3vw">VNF Class:</p>
+        <p style="font-size:1vw">VNF Class:</p>
             <img class = "VNF_Class" id = "clock" src="{{static_url('template/icon/clock.png')}}" onClick="select_pic('clock')">
             <img class = "VNF_Class" id = "leftwing" src="{{static_url('template/icon/leftwing.png')}}" onClick="select_pic('leftwing')">
             <img class = "VNF_Class" id = "dome" src="{{static_url('template/icon/dome.png')}}" onClick="select_pic('dome')">
@@ -256,63 +256,70 @@
     </script>
 
 <script type="text/javascript">
-  //  //在canvas上画图
-  // window.onload = function() {
-  // 　　var oC = document.getElementById('c1');
-  // 　　var oCG = oC.getContext('2d');
-  //     oCG.fillStyle =  "#FFFFFF";
-  //     oCG.fillRect(0,0,400,400);
-  //     oCG.lineWidth=50;
-  // 　　oC.onmousedown = function(ev) {
-  //     var ev = ev || window.event;
-  //     oCG.moveTo(ev.clientX-oC.offsetLeft,ev.clientY-oC.offsetTop); //ev.clientX-oC.offsetLeft,ev.clientY-oC.offsetTop鼠标在当前画布上X,Y坐标
-  //     document.onmousemove = function(ev) {
-  //         var ev = ev || window.event;//获取event对象
-  //         oCG.lineTo(ev.clientX-oC.offsetLeft,ev.clientY-oC.offsetTop);
-  //         oCG.stroke();
-  //         };
-  //     oC.onmouseup = function() {
-  //         is_draw ="yes";
-  //         document.onmousemove = null;
-  //         document.onmouseup = null;
-  //         };
-  // 　　　　};
-  // };
+   //在canvas上画图
+  window.onload = function() {
+      var oC = document.getElementById('c1');
+      // if(document.body.clientWidth >= 1700){
+      //     oC.style.width = "400px";
+      //     oC.style.height = "400px";
+      // }
+      // if(document.body.clientWidth){
+      //     oC.style.width = "200px";
+      //     oC.style.height = "200px";
+      // }
 
-  // // 清除canvas中元素
-  // function clearCanvas(){  
-  //     var c=document.getElementById("c1");
-  //     c.width=c.width;
-  //     var c = c.getContext('2d');
-  //     c.fillStyle =  "#FFFFFF";
-  //     c.fillRect(0,0,400,400);
-  //     c.lineWidth=50;
-  //     is_draw ="no"
-  // }  
+  　　var oCG = oC.getContext('2d');
+      oCG.fillStyle =  "#FFFFFF";
+      oCG.fillRect(0,0,400,400);
+      oCG.lineWidth=50;
+  　　oC.onmousedown = function(ev) {
+      var ev = ev || window.event;
+      oCG.moveTo(ev.clientX-oC.offsetLeft,ev.clientY-oC.offsetTop); //ev.clientX-oC.offsetLeft,ev.clientY-oC.offsetTop鼠标在当前画布上X,Y坐标
+      document.onmousemove = function(ev) {
+          var ev = ev || window.event;//获取event对象
+          oCG.lineTo(ev.clientX-oC.offsetLeft,ev.clientY-oC.offsetTop);
+          oCG.stroke();
+          };
+      oC.onmouseup = function() {
+          is_draw ="yes";
+          document.onmousemove = null;
+          document.onmouseup = null;
+          };
+  　　　　};
+  };
 
-  //  // 画图查找
-  // function draw_select(Group_Number,Number_Index){
-  //   var cxt = document.getElementById('c1');
-  // 　var cxt = cxt.getContext('2d');
-  //   var data = cxt.getImageData(0, 0, 400, 400).data
-  //   console.log(data)
-  //   var formData = new FormData();
-  //   formData.append("data",data)
-  //   formData.append("Group_Number",Group_Number)
-  //   // formData.append("Textbox_Orientation",Textbox_Orientation)
-  //   formData.append("Number_Index",Number_Index)
+  // 清除canvas中元素
+  function clearCanvas(){
+      var c=document.getElementById("c1");
+      c.width=c.width;
+      var c = c.getContext('2d');
+      c.fillStyle =  "#FFFFFF";
+      c.fillRect(0,0,400,400);
+      c.lineWidth=50;
+      is_draw ="no"
+  }
 
-  //   lSendUrl('POST', 'http://localhost:12121/draw_select',formData,
-  //       function(response){
-  //         document.getElementById('card-columns').innerHTML="";
-  //         imglist = response['pic_list']
-  //         for(var i=0;i<response['pic_list'].length;i++){
-  //                 document.getElementById('card-columns').innerHTML += '<img src=' + response['pic_list'][i] + 'style="width:100px;height:100px"'+ 'class="card-img-top probootstrap-animate"' +' />'
-  //               }
-  //         $("#text").html("Info: Here are 300 infographics");
-  //       }
-  //   )
-  // }
+   // 画图查找
+  function draw_select(Group_Number,Number_Index){
+    var cxt = document.getElementById('c1');
+  　var cxt = cxt.getContext('2d');
+    var data = cxt.getImageData(0, 0, 400, 400).data
+    var formData = new FormData();
+    formData.append("data",data)
+    formData.append("Group_Number",Group_Number)
+    formData.append("Number_Index",Number_Index)
+
+    lSendUrl('POST', 'http://localhost:12121/draw_select',formData,
+        function(response){
+          document.getElementById('card-columns').innerHTML="";
+          imglist = response['pic_list']
+          for(var i=0;i<response['pic_list'].length;i++){
+                  document.getElementById('card-columns').innerHTML += '<img src=' + response['pic_list'][i] + 'style="width:100px;height:100px"'+ 'class="card-img-top probootstrap-animate"' +' />'
+                }
+          $("#text").html("Info: Here are 300 infographics");
+        }
+    )
+  }
 
 
 </script>
