@@ -153,16 +153,29 @@ class ShowDrawSelectHandler(tornado.web.RequestHandler):
         gray=im.convert('L')
         gray.save("1.jpg")
         pic = np.array(gray)
-        im.show()
-        im_hash = self.read_vnf_flow_hash(im)
+        im.show('i.jpg')
+        im_hash = self.read_vnf_flow_hash('1.jpg')
+        distance = []
+        flow_name = []
+        flow_path = "./template/data/flow_pic/*_flow.png"
+        for i in glob.glob(flow_path):
+            flow_name.append(i)
+        print(len(flow_name))
+        for i in flow_name:
+            i = self.read_vnf_flow_hash(i)
+            distance.append(self.hammingDistance(i, im_hash))
+        flow_index = list(self.similarest_pic(distance))
+        for i in flow_index:
+            print(flow_name[i])
+            sim_pic = Image.open(flow_name[i])
+            sim_pic.show()
+        self.read_csv(pic)
+        pic_list = self.compute_pca(Group_Number,Number_Index)
 
-        # self.read_csv(pic)
-        # pic_list = self.compute_pca(Group_Number,Number_Index)
-
-        # self.write({"status": "ok", "pic_list": pic_list})
+        self.write({"status": "ok", "pic_list": pic_list})
         self.write({"status": "ok"})
 
-    def hammingDistance(x, y):
+    def hammingDistance(self, x, y):
         x = int(str(x), 16)
         y = int(str(y), 16)
         hamming_distance = 0
@@ -174,12 +187,14 @@ class ShowDrawSelectHandler(tornado.web.RequestHandler):
         return a
 
     def read_vnf_flow_hash(self, filename):
-        hash_str = imagehash.dhash(Image.open(filename))
+        hash_str = imagehash.average_hash(Image.open(filename))
         return hash_str
 
+    # 求出相似最高的前三个
     def similarest_pic(self, n):
-        max_num_index_list = map(n.index, heapq.nlargest(3, n))  # 求出相似最高的前三个
-        _index = list(max_num_index_list)
+        print(heapq.nlargest(20, n))
+        max_num_index_list = map(n.index, heapq.nlargest(20, n))
+        _index = list(set(max_num_index_list))
         return _index
 
     def read_csv(self, pic):

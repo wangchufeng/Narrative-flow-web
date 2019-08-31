@@ -312,6 +312,7 @@
     lSendUrl('POST', 'http://localhost:12121/draw_select',formData,
         function(response){
           document.getElementById('card-columns').innerHTML="";
+          console.log("data")
           imglist = response['pic_list']
           for(var i=0;i<response['pic_list'].length;i++){
                   document.getElementById('card-columns').innerHTML += '<img src=' + response['pic_list'][i] + 'style="width:100px;height:100px"'+ 'class="card-img-top probootstrap-animate"' +' />'
