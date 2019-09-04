@@ -35,7 +35,7 @@
          <button id="buttontonext" onClick="clearCanvas()"> Reset </button>
         <br/>
         <br/>
-         <canvas id="c1" style="border-style: inset" width="400px" height="400px"></canvas>
+         <canvas id="c1" style="border-style: inset; width:10vw; height: 10vw;"></canvas>
          <button id="buttontonext" onClick="draw_select()"> Query </button>
         
         <br/>
@@ -86,7 +86,7 @@
         <a href="#" class="probootstrap-toggle js-probootstrap-toggle"><span class="oi oi-menu"></span></a>
         <div class="probootstrap-main-site-logo"><a href="index.html">Aside</a></a></div>
       </div>
-        <div id="card-columns">
+        <div id="card-columns" onLoad="goPage(1,10);">
       </div>  
     </main>
 
@@ -117,7 +117,7 @@
                   imglist = response['imglist'];
                   // console.log('<img src="' + imglist[0]+'"' + ' style="width:100px;height:100px"'+ ' class="card-img-top probootstrap-animate"' +' />')
                   for(var i=0;i<204;i++){
-                    document.getElementById('card-columns').innerHTML += '<img src=' + imglist[i] + 'style="width:100px;height:100px"'+ 'class="card-img-top probootstrap-animate"' +' />'
+                    document.getElementById('card-columns').innerHTML += '<img src=' + imglist[i] + '" style="width:100px;height:100px"'+ ' />'
                   }
                   $("#text").html("Info: show all infographics ");
                   AddImgClickEvent();
@@ -134,11 +134,11 @@
             formData.append("file_name",file_name)
             
             document.getElementById('card-columns').innerHTML="";
-            document.getElementById('card-columns').innerHTML +='<img id="first" style="border:solid 5px red;" src=' + this.src +'class="card-img-top probootstrap-animate"' +' />'
+            document.getElementById('card-columns').innerHTML +='<img id="first" style="border:solid 5px red; width:100px; height:100px;" src=' + this.src +' />'
             lSendUrl('POST', 'http://localhost:12121/click_pic',formData,
               function(response){
                 for(var i=0;i<response['pic_list'].length;i++){
-                  document.getElementById('card-columns').innerHTML += '<img src=' + response['pic_list'][i] + 'style="width:100px;height:100px"'+ 'class="card-img-top probootstrap-animate"' +' />'
+                  document.getElementById('card-columns').innerHTML += '<img src=' + response['pic_list'][i] + '" style="width:100px;height:100px"' +' />'
                 }
                 $("#text").html("Info: The following is a similar infographics of the first infographics");  
               }
@@ -183,7 +183,7 @@
                   document.getElementById('card-columns').innerHTML="";
                   for(var i=0;i<imglist.length;i++){
                     document.getElementById('card-columns').innerHTML += '<img src=' + imglist
-                    [i] + 'style="width:100px;height:100px"'+ 'class="card-img-top probootstrap-animate"' +' />'
+                    [i] + '" style="width:100px;height:100px"' + ' />'
                   }
 
                 }else{
@@ -229,7 +229,7 @@
               function(response){
                 document.getElementById('card-columns').innerHTML="";
                 for(var i=0;i<response['pic_list'].length;i++){
-                  document.getElementById('card-columns').innerHTML += '<img src=' + response['pic_list'][i] + 'style="width:100px;height:100px"'+ 'class="card-img-top probootstrap-animate"' +' />'
+                  document.getElementById('card-columns').innerHTML += '<img src=' + response['pic_list'][i] + 'style="width:100px;height:100px"' + ' />'
                 }             
               }
             )
@@ -255,23 +255,20 @@
 
     </script>
 
+
+<!-- 画图查询 -->
 <script type="text/javascript">
    //在canvas上画图
   window.onload = function() {
       var oC = document.getElementById('c1');
-      // if(document.body.clientWidth >= 1700){
-      //     oC.style.width = "400px";
-      //     oC.style.height = "400px";
-      // }
-      // if(document.body.clientWidth){
-      //     oC.style.width = "200px";
-      //     oC.style.height = "200px";
-      // }
-
   　　var oCG = oC.getContext('2d');
-      oCG.fillStyle =  "#FFFFFF";
+      oCG.fillStyle = "#FFFFFF";
+      var width = document.body.clientWidth*0.2
+      // document.getElementById("c1").style.width = "400px";
+      // document.getElementById("c1").style.height = "400px";
       oCG.fillRect(0,0,400,400);
-      oCG.lineWidth=50;
+
+      oCG.lineWidth=2;
   　　oC.onmousedown = function(ev) {
       var ev = ev || window.event;
       oCG.moveTo(ev.clientX-oC.offsetLeft,ev.clientY-oC.offsetTop); //ev.clientX-oC.offsetLeft,ev.clientY-oC.offsetTop鼠标在当前画布上X,Y坐标
@@ -309,20 +306,74 @@
     formData.append("Group_Number",Group_Number)
     formData.append("Number_Index",Number_Index)
 
+    var fullQuality = document.getElementById('c1').toDataURL("image/jpeg", 1.0);
+
     lSendUrl('POST', 'http://localhost:12121/draw_select',formData,
         function(response){
           document.getElementById('card-columns').innerHTML="";
           console.log("data")
           imglist = response['pic_list']
           for(var i=0;i<response['pic_list'].length;i++){
-                  document.getElementById('card-columns').innerHTML += '<img src=' + response['pic_list'][i] + 'style="width:100px;height:100px"'+ 'class="card-img-top probootstrap-animate"' +' />'
+                  document.getElementById('card-columns').innerHTML += '<img src=' + response['pic_list'][i] + '" style="width:100px;height:100px"' +' />'
                 }
           $("#text").html("Info: Here are 300 infographics");
         }
     )
   }
 
+</script>
 
+
+
+
+<!-- 分页 -->
+<script type="text/javascript">
+
+function goPage(pno,psize){
+  var itable = document.getElementById("idData");
+  var num = itable.rows.length;//表格所有行数(所有记录数)
+  console.log(num);
+  var totalPage = 0;//总页数
+  var pageSize = psize;//每页显示行数
+  //总共分几页
+  if(num/pageSize > parseInt(num/pageSize)){
+      totalPage=parseInt(num/pageSize)+1;
+    }else{
+      totalPage=parseInt(num/pageSize);
+    }
+  var currentPage = pno;//当前页数
+  var startRow = (currentPage - 1) * pageSize+1;//开始显示的行 31
+    var endRow = currentPage * pageSize;//结束显示的行  40
+    endRow = (endRow > num)? num : endRow;  //40
+    console.log(endRow);
+    //遍历显示数据实现分页
+
+  for(var i=1;i<(num+1);i++){
+    var irow = itable.rows[i-1];
+    if(i>=startRow && i<=endRow){
+      irow.style.display = "block";
+    }else{
+      irow.style.display = "none";
+    }
+  }
+
+  var tempStr = "共"+num+"条记录 分"+totalPage+"页 当前第"+currentPage+"页";
+  if(currentPage>1){
+    tempStr += "<a href=\"#\" onClick=\"goPage("+(1)+","+psize+")\">首页</a>";
+    tempStr += "<a href=\"#\" onClick=\"goPage("+(currentPage-1)+","+psize+")\"><上一页</a>"
+  }else{
+    tempStr += "首页";
+    tempStr += "<上一页";
+  }
+  if(currentPage<totalPage){
+    tempStr += "<a href=\"#\" onClick=\"goPage("+(currentPage+1)+","+psize+")\">下一页></a>";
+    tempStr += "<a href=\"#\" onClick=\"goPage("+(totalPage)+","+psize+")\">尾页</a>";
+  }else{
+    tempStr += "下一页>";
+    tempStr += "尾页";
+  }
+  document.getElementById("barcon").innerHTML = tempStr;
+}
 </script>
 
     

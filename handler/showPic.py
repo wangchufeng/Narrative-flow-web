@@ -7,7 +7,7 @@ import pandas as pd
 import heapq
 from PIL import Image
 import shutil
-from sklearn.decomposition import PCA
+# from sklearn.decomposition import PCA
 class ShowPicHandler(tornado.web.RequestHandler):
     def get(self):
         self.render("index.html")
@@ -169,10 +169,11 @@ class ShowDrawSelectHandler(tornado.web.RequestHandler):
             print(flow_name[i])
             sim_pic = Image.open(flow_name[i])
             sim_pic.show()
-        self.read_csv(pic)
-        pic_list = self.compute_pca(Group_Number,Number_Index)
 
-        self.write({"status": "ok", "pic_list": pic_list})
+        # self.read_csv(pic)
+        # pic_list = self.compute_pca(Group_Number,Number_Index)
+
+        # self.write({"status": "ok", "pic_list": pic_list})
         self.write({"status": "ok"})
 
     def hammingDistance(self, x, y):
@@ -190,11 +191,23 @@ class ShowDrawSelectHandler(tornado.web.RequestHandler):
         hash_str = imagehash.average_hash(Image.open(filename))
         return hash_str
 
-    # 求出相似最高的前三个
+    # 求出相似最高的前x个
     def similarest_pic(self, n):
-        print(heapq.nlargest(20, n))
-        max_num_index_list = map(n.index, heapq.nlargest(20, n))
-        _index = list(set(max_num_index_list))
+        similar_n = 20
+        # max_similar = list(heapq.nlargest(similar_n, n))
+        # for similar_n in max_similar:
+        #     _temp_index = [i for i, x in enumerate(max_similar) if i == similar_n]
+        #     print(_temp_index)
+        #     _index = _index + _temp_index
+        Inf = 0
+        _index = []
+        for i in range(similar_n):
+            _index.append(n.index(max(n)))
+            n[n.index(max(n))] = Inf
+        print(_index)
+        # max_num_index_list = map(n.index, heapq.nlargest(20, n))
+        # _index = list(set(max_num_index_list))
+
         return _index
 
     def read_csv(self, pic):
@@ -295,10 +308,6 @@ class ShowClickPicHandler(tornado.web.RequestHandler):
         for i in categorylist:
             f = open(i,"r")
             lines = f.readlines()
-
-            # if (file_name in str(lines)) and (file_name+".jpg" not in str(lines)):
-            #     category = i
-            #     break
             for line in lines:
                 line = line.split("\n")[0]
                 if file_name == str(line):
