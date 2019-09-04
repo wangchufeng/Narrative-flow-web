@@ -2,9 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9fc8eb24-ee0b-4108-9517-ca5dbf80b831" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/deployment.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/webServers.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/handler/click_similar.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/handler/click_vnf.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/handler/draw_select.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/handler/vnf_condition_select.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/Narrative-flow-web.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Narrative-flow-web.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/handler/showPic.py" beforeDir="false" afterPath="$PROJECT_DIR$/handler/showPic.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/template/css/customized.css" beforeDir="false" afterPath="$PROJECT_DIR$/template/css/customized.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/template/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/template/css/style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/template/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/template/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/template/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/template/index.html" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -14,11 +23,12 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
+            <state relative-caret-position="330">
+              <caret line="11" column="64" selection-start-line="11" selection-start-column="46" selection-end-line="11" selection-end-column="64" />
               <folding>
                 <element signature="e#0#14#0" expanded="true" />
               </folding>
@@ -26,11 +36,20 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/handler/showPic.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="213">
-              <caret line="151" column="43" lean-forward="true" selection-start-line="151" selection-start-column="43" selection-end-line="151" selection-end-column="43" />
+            <state relative-caret-position="930">
+              <caret line="31" column="43" selection-start-line="31" selection-start-column="43" selection-end-line="31" selection-end-column="43" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/handler/draw_select.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1889">
+              <caret line="64" lean-forward="true" selection-start-line="64" selection-end-line="64" />
               <folding>
                 <element signature="e#0#16#0" expanded="true" />
               </folding>
@@ -38,7 +57,41 @@
           </provider>
         </entry>
       </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/handler/click_vnf.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="539">
+              <caret line="19" column="38" lean-forward="true" selection-start-line="19" selection-start-column="38" selection-end-line="19" selection-end-column="38" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/handler/click_similar.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="30">
+              <caret line="1" selection-start-line="1" selection-end-line="1" selection-end-column="11" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/handler/vnf_condition_select.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1020">
+              <caret line="34" column="30" lean-forward="true" selection-start-line="34" selection-start-column="30" selection-end-line="34" selection-end-column="30" />
+            </state>
+          </provider>
+        </entry>
+      </file>
     </leaf>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
@@ -47,6 +100,7 @@
       <find>category_txt</find>
       <find>flow_pic</find>
       <find>label_txt</find>
+      <find>glob</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -57,6 +111,12 @@
       <list>
         <option value="$PROJECT_DIR$/template/index.html" />
         <option value="$PROJECT_DIR$/handler/showPic.py" />
+        <option value="$PROJECT_DIR$/handler/vnf_condition_select.py" />
+        <option value="$PROJECT_DIR$/handler/draw_selet.py" />
+        <option value="$PROJECT_DIR$/app.py" />
+        <option value="$PROJECT_DIR$/handler/click_vnf.py" />
+        <option value="$PROJECT_DIR$/handler/draw_select.py" />
+        <option value="$PROJECT_DIR$/handler/click_similar.py" />
       </list>
     </option>
   </component>
@@ -72,6 +132,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -93,13 +154,13 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="last_opened_file_path" value="F:/CHI-VNF/pic_data/cut_detect.py" />
-    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -126,6 +187,7 @@
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/app.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
@@ -142,7 +204,7 @@
     </recent_temporary>
   </component>
   <component name="SvnConfiguration">
-    <configuration />
+    <configuration>C:\Users\lijiamin\AppData\Roaming\Subversion</configuration>
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -151,31 +213,43 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1565923567375</updated>
+      <workItem from="1567599462955" duration="5327000" />
     </task>
     <servers />
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="5327000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-1208" y="-8" width="1216" height="1896" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Favorites" side_tool="true" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.13667233" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2050173" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info anchor="bottom" id="Version Control" />
-      <window_info anchor="bottom" id="Python Console" />
-      <window_info anchor="bottom" id="Terminal" />
-      <window_info anchor="bottom" id="Event Log" side_tool="true" />
+      <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="Docker" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Database Changes" />
+      <window_info anchor="bottom" id="File Transfer" visible="true" weight="0.17707151" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.161748" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.161748" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Version Control" order="7" />
+      <window_info anchor="bottom" id="Terminal" order="8" />
+      <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
+      <window_info anchor="bottom" id="Python Console" order="10" />
+      <window_info anchor="right" id="Database" />
+      <window_info anchor="right" id="SciView" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
     </layout>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
@@ -210,15 +284,6 @@
     </option>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <folding>
-            <element signature="e#0#14#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://F:/CHI-VNF/pic_data/cut_detect.py">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -233,13 +298,51 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/handler/showPic.py">
+    <entry file="file://$PROJECT_DIR$/app.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="213">
-          <caret line="151" column="43" lean-forward="true" selection-start-line="151" selection-start-column="43" selection-end-line="151" selection-end-column="43" />
+        <state relative-caret-position="330">
+          <caret line="11" column="64" selection-start-line="11" selection-start-column="46" selection-end-line="11" selection-end-column="64" />
+          <folding>
+            <element signature="e#0#14#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/handler/click_similar.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="30">
+          <caret line="1" selection-start-line="1" selection-end-line="1" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/handler/click_vnf.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="539">
+          <caret line="19" column="38" lean-forward="true" selection-start-line="19" selection-start-column="38" selection-end-line="19" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/handler/draw_select.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1889">
+          <caret line="64" lean-forward="true" selection-start-line="64" selection-end-line="64" />
           <folding>
             <element signature="e#0#16#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/handler/showPic.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="930">
+          <caret line="31" column="43" selection-start-line="31" selection-start-column="43" selection-end-line="31" selection-end-column="43" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/handler/vnf_condition_select.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1020">
+          <caret line="34" column="30" lean-forward="true" selection-start-line="34" selection-start-column="30" selection-end-line="34" selection-end-column="30" />
         </state>
       </provider>
     </entry>

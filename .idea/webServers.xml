@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="bd589820-a08e-4fda-bcc9-74d8b08e1b33" name="aliyun_vnf" url="http://47.103.22.185">
+        <fileTransfer host="47.103.22.185" port="22" rootFolder="/home/website/Narrative-flow-web" accessType="SFTP">
+          <advancedOptions>
+            <advancedOptions controlEncoding="utf-8" dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+          <option name="port" value="22" />
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>

@@ -107,7 +107,7 @@
         var formData = new FormData();
         var vnf_class = document.getElementsByClassName("VNF_Class")
         for(i=0;i<vnf_class.length;i++){
-          vnf_class[i].style = "border: solid 1px black; width: 40px; height: 40px";
+          vnf_class[i].style = "border: solid 1px black; width: 12%; height: 12%";
         }
         lSendUrl('POST', 'http://localhost:12121/showallpic',formData,
                 function(response){
@@ -325,9 +325,6 @@
   }
 
 </script>
-
-
-
 
 <!-- 分页 -->
 <script type="text/javascript">
