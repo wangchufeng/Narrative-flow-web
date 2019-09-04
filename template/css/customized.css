@@ -1,11 +1,12 @@
 img {width: 135px;
     height: 135px;
-    margin: 2px;
+    margin:1px;
     border: solid;
     border-width: 1px; 
 }
-#input{
-  padding: 30px;
+input{
+  /* padding: 30px; */
+  size: 1;
 }
 select{
     font-family: "微软雅黑";
@@ -32,6 +33,10 @@ option:hover{
     background: #EBCCD1;
 }
 
+br{
+    height: 1px;
+}
+
 button {
 
 background-color: #4CAF50;
@@ -40,7 +45,7 @@ border: none;
 
 color: white;
 
-padding: 10px 20px;
+padding: 10px 16px;
 
 text-align: center;
 
@@ -50,7 +55,7 @@ display: inline-block;
 
 font-size: 0.7vw;
 
-/* margin: 2px 2px; */
+margin: 0px 0px 30px, 0px;
 
 cursor: pointer;
 

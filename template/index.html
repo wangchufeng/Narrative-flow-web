@@ -17,9 +17,9 @@
     <link rel="stylesheet" href="{{static_url('template/css/style.css')}}">
     <link rel="stylesheet" href="{{static_url('template/css/customized.css')}}">
     <style>
-    main{
+    /* main{
       width: 76%
-    }
+    } */
     </style>
 </head>
   <body>
@@ -29,18 +29,17 @@
       <div id = "aside_content" class="probootstrap-site-logo probootstrap-animate" data-animate-effect="fadeInLeft">
       <br/>
         <a href="index.html" class="mb-2 d-block probootstrap-logo" style="font-size:2vw">VNF-Explorer</a>
-        <p class="font" style="font-size:0.9vw" >Query Infographics by Visual Narrative Flow </p>
-        <br/> 
+        <p class="font" style="font-size:0.8vw" > Query Infographics by Visual Narrative Flow </p>
+        
         <button onclick="showallpic()">show all infographics</button>
          <button id="buttontonext" onClick="clearCanvas()"> Reset </button>
-        <br/>
-        <br/>
-         <canvas id="c1" style="border-style: inset; width:10vw; height: 10vw;"></canvas>
-         <button id="buttontonext" onClick="draw_select()"> Query </button>
+         <br style="line-height: 6vh;"/>
+         <!-- <canvas id="c1" style="border-style: inset" ></canvas> -->
+         <button id="draw_query" onClick="draw_select()" > Query </button>
+        <br style="line-height: 6vh"/>
         
+        <span class="font" style="font-size: 0.9vw">VNF Class: &nbsp;</span>
         <br/>
-        <br/>
-        <p style="font-size:1vw">VNF Class:</p>
             <img class = "VNF_Class" id = "clock" src="{{static_url('template/icon/clock.png')}}" onClick="select_pic('clock')">
             <img class = "VNF_Class" id = "leftwing" src="{{static_url('template/icon/leftwing.png')}}" onClick="select_pic('leftwing')">
             <img class = "VNF_Class" id = "dome" src="{{static_url('template/icon/dome.png')}}" onClick="select_pic('dome')">
@@ -57,17 +56,17 @@
             <img class = "VNF_Class" id = "portrait" src="{{static_url('template/icon/portrait.png')}}" onClick="select_pic('portrait')">
             <img class = "VNF_Class" id = "rightarm" src="{{static_url('template/icon/rightarm.png')}}" onClick="select_pic('rightarm')">
             <img class = "VNF_Class" id = "screw" src="{{static_url('template/icon/screw.png')}}" onClick="select_pic('screw')">
-            <br/>
-            <br/>
-      <span class="font" style="font-size: 0.9vw">Visual Group Number: &nbsp;</span>
-      <input type="text" style="font-size: 0.9vw" id="pic_flow" placeholder="Enter the seed of the image" />
-      <br/>
-      <br/>
+            <br style="line-height: 6vh;"/>
+            
+            
+      <span class="font" style="font-size: 0.9vw">Visual Group Number: &nbsp;<input type="text" style="font-size: 0.9vw;"  size="8px" id="pic_flow" placeholder="" /></span>
+      
+      <br style="line-height: 2vh;"/>
+      
       <span class="font" style="font-size: 0.9vw">Number Index: &nbsp;</span>
       <input type="radio" name="radio_2" value="1"> &nbsp;<span class="font" style="font-size: 0.9vw">yes </span>&nbsp;
       <input type="radio" name="radio_2" value="2"> &nbsp;<span class="font" style="font-size: 0.9vw">no </span>&nbsp;
-      <br/>
-      <br/>
+      <br style="line-height: 4vh;"/>
       <button id="buttontonext" onClick="query()"> Query </button>
       </div>
     </div>
@@ -258,17 +257,18 @@
 
 <!-- 画图查询 -->
 <script type="text/javascript">
-   //在canvas上画图
+      var canvas_width = document.body.clientWidth * 0.18;
+      var linewidth = canvas_width * 0.13
+      var myCanvas = "<canvas id='c1' style='border-style: inset' width='" + canvas_width + "px' height='"+ canvas_width + "px'></vanvas>";
+      document.getElementById('draw_query').insertAdjacentHTML("beforeBegin", myCanvas);
+
   window.onload = function() {
       var oC = document.getElementById('c1');
   　　var oCG = oC.getContext('2d');
       oCG.fillStyle = "#FFFFFF";
-      var width = document.body.clientWidth*0.2
-      // document.getElementById("c1").style.width = "400px";
-      // document.getElementById("c1").style.height = "400px";
-      oCG.fillRect(0,0,400,400);
+      oCG.fillRect(0,0,canvas_width,canvas_width);
 
-      oCG.lineWidth=2;
+      oCG.lineWidth=linewidth;
   　　oC.onmousedown = function(ev) {
       var ev = ev || window.event;
       oCG.moveTo(ev.clientX-oC.offsetLeft,ev.clientY-oC.offsetTop); //ev.clientX-oC.offsetLeft,ev.clientY-oC.offsetTop鼠标在当前画布上X,Y坐标
@@ -291,8 +291,8 @@
       c.width=c.width;
       var c = c.getContext('2d');
       c.fillStyle =  "#FFFFFF";
-      c.fillRect(0,0,400,400);
-      c.lineWidth=50;
+      c.fillRect(0,0,canvas_width,canvas_width);
+      c.lineWidth=linewidth;
       is_draw ="no"
   }
 
@@ -300,11 +300,14 @@
   function draw_select(Group_Number,Number_Index){
     var cxt = document.getElementById('c1');
   　var cxt = cxt.getContext('2d');
-    var data = cxt.getImageData(0, 0, 400, 400).data
+    var data_width = parseInt(canvas_width)
+    var data = cxt.getImageData(0, 0, data_width, data_width).data
+
     var formData = new FormData();
     formData.append("data",data)
     formData.append("Group_Number",Group_Number)
     formData.append("Number_Index",Number_Index)
+    formData.append("Data_Width",data_width)
 
     var fullQuality = document.getElementById('c1').toDataURL("image/jpeg", 1.0);
 

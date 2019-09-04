@@ -145,8 +145,9 @@ class ShowDrawSelectHandler(tornado.web.RequestHandler):
         data = self.get_argument("data")
         Group_Number = self.get_argument("Group_Number")
         Number_Index = self.get_argument("Number_Index")
+        data_width = int(self.get_argument("Data_Width"))
         data = data.split(",")
-        np_img = np.array(data).reshape(400,400,4)
+        np_img = np.array(data).reshape(data_width,data_width,4)
         np_img = np.asarray(np_img, dtype=np.uint8)
         im = Image.fromarray(np_img,'RGBA')
         im = im.resize((100, 100))
@@ -165,7 +166,7 @@ class ShowDrawSelectHandler(tornado.web.RequestHandler):
             i = self.read_vnf_flow_hash(i)
             distance.append(self.hammingDistance(i, im_hash))
         flow_index = list(self.similarest_pic(distance))
-        for i in flow_index:
+        for i in flow_index[:3]:
             print(flow_name[i])
             sim_pic = Image.open(flow_name[i])
             sim_pic.show()
