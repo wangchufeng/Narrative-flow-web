@@ -1,5 +1,6 @@
 import tornado.web
 
+
 class ShowPicFlowHandler(tornado.web.RequestHandler):
     def post(self):
         pic_flow = self.get_argument("pic_flow")

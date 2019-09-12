@@ -16,26 +16,25 @@
     <link rel="stylesheet" href="{{static_url('template/css/animate.css')}}">
     <link rel="stylesheet" href="{{static_url('template/css/style.css')}}">
     <link rel="stylesheet" href="{{static_url('template/css/customized.css')}}">
-    <style>
-    /* main{
-      width: 76%
-    } */
-    </style>
 </head>
   <body>
     <aside class="probootstrap-aside js-probootstrap-aside">
     <div id="aside">
-      <a href="#" class="probootstrap-close-menu js-probootstrap-close-menu d-md-none"><span class="oi oi-arrow-left"></span> Close</a>
+      <!--<a href="#" class="probootstrap-close-menu js-probootstrap-close-menu d-md-none"><span class="oi oi-arrow-left"></span> Close</a>-->
       <div id = "aside_content" class="probootstrap-site-logo probootstrap-animate" data-animate-effect="fadeInLeft">
-      <br/>
-        <a href="index.html" class="mb-2 d-block probootstrap-logo" style="font-size:2vw">VNF-Explorer</a>
-        <p class="font" style="font-size:0.8vw" > Query Infographics by Visual Narrative Flow </p>
-        
+
+        <p class="mb-2 d-block probootstrap-logo" style="font-size:2vw;line-height: 3vh">VNF-Explorer</p>
+        <p style="font-size:1.2vh; " > Query Infographics by Visual Narrative Flow </p>
+
+        <!--<br style="line-height: vh">-->
+
         <button onclick="showallpic()">show all infographics</button>
-         <button id="buttontonext" onClick="clearCanvas()"> Reset </button>
-         <br style="line-height: 6vh;"/>
+        <button id="buttontonext" onClick="clearCanvas()"> Reset </button>
+
+        <br style="line-height: 6vh;"/>
+
          <!-- <canvas id="c1" style="border-style: inset" ></canvas> -->
-         <button id="draw_query" onClick="draw_select()" > Query </button>
+        <button id="draw_query" onClick="draw_select()" > Query </button>
         <br style="line-height: 6vh"/>
         
         <span class="font" style="font-size: 0.9vw">VNF Class: &nbsp;</span>
@@ -57,8 +56,6 @@
             <img class = "VNF_Class" id = "rightarm" src="{{static_url('template/icon/rightarm.png')}}" onClick="select_pic('rightarm')">
             <img class = "VNF_Class" id = "screw" src="{{static_url('template/icon/screw.png')}}" onClick="select_pic('screw')">
             <br style="line-height: 6vh;"/>
-            
-            
       <span class="font" style="font-size: 0.9vw">Visual Group Number: &nbsp;<input type="text" style="font-size: 0.9vw;"  size="8px" id="pic_flow" placeholder="" /></span>
       
       <br style="line-height: 2vh;"/>
@@ -85,8 +82,10 @@
         <a href="#" class="probootstrap-toggle js-probootstrap-toggle"><span class="oi oi-menu"></span></a>
         <div class="probootstrap-main-site-logo"><a href="index.html">Aside</a></a></div>
       </div>
-        <div id="card-columns" onLoad="goPage(1,10);">
-      </div>  
+        <div id="card-columns">
+
+        </div>
+        <div id="page"></div>
     </main>
 
     <script type="text/javascript" src="{{static_url('lib/jquery.js')}}"></script>
@@ -97,284 +96,59 @@
     <script src="{{static_url('template/js/imagesloaded.pkgd.min.js')}}"></script>
     <script src="{{static_url('template/js/main.js')}}"></script>
     <script type="text/javascript" src="{{static_url('lib/lurlquery.js')}}"></script>
+    <script src="{{static_url('template/js/custom.js')}}" type="text/javascript"></script>
 
-    <script type="text/javascript">
-      imglist = [];
-      category_now="";
-      is_draw = "no";
-
-      function showallpic(){
-        var formData = new FormData();
-        var vnf_class = document.getElementsByClassName("VNF_Class")
-        for(i=0;i<vnf_class.length;i++){
-          vnf_class[i].style = "border: solid 1px black; width: 12%; height: 12%";
-        }
-        lSendUrl('POST', 'http://localhost:12121/showallpic',formData,
-                function(response){
-                  document.getElementById('card-columns').innerHTML="";
-                  console.log(response['status']);
-                  imglist = response['imglist'];
-                  // console.log('<img src="' + imglist[0]+'"' + ' style="width:100px;height:100px"'+ ' class="card-img-top probootstrap-animate"' +' />')
-                  for(var i=0;i<204;i++){
-                    document.getElementById('card-columns').innerHTML += '<img src=' + imglist[i] + '" style="width:100px;height:100px"'+ ' />'
-                  }
-                  $("#text").html("Info: show all infographics ");
-                  AddImgClickEvent();
-                }
-            )
-      }
-      // 在show all infographics后，点击图片查找相似图片
-      function AddImgClickEvent(){
-        var objs = document.getElementById("card-columns").getElementsByTagName("img");           
-        for(var i=0;i<objs.length;i++){
-          objs[i].onclick=function(){
-            var file_name = this.src;
-            var formData = new FormData();
-            formData.append("file_name",file_name)
-            
-            document.getElementById('card-columns').innerHTML="";
-            document.getElementById('card-columns').innerHTML +='<img id="first" style="border:solid 5px red; width:100px; height:100px;" src=' + this.src +' />'
-            lSendUrl('POST', 'http://localhost:12121/click_pic',formData,
-              function(response){
-                for(var i=0;i<response['pic_list'].length;i++){
-                  document.getElementById('card-columns').innerHTML += '<img src=' + response['pic_list'][i] + '" style="width:100px;height:100px"' +' />'
-                }
-                $("#text").html("Info: The following is a similar infographics of the first infographics");  
-              }
-            )
-          }
-        }
-      }
-
-      // 点击VNF图片查找
-      function select_pic(pic_flow){
-        //  清除页面元素
-        document.getElementById('card-columns').innerHTML="";
-        var seed_id = "null";
-        var pic_flow = pic_flow;
-        category_now =pic_flow;
-        var vnf_class = document.getElementsByClassName("VNF_Class")
-        for(i=0;i<vnf_class.length;i++){
-          vnf_class[i].style = "border: solid 1px black; width: 40px; height: 40px";
-        }
-        document.getElementById(pic_flow).style = "border: solid 5px red; width: 40px; height: 40px";
-        console.log(pic_flow)
-
-        // 搜索某种叙事流
-        if(pic_flow){
-          var formData = new FormData();
-          formData.append("pic_flow",pic_flow)
-          if(seed_id != "null"){
-            formData.append("seed_id",seed_id)
-          }else{
-            formData.append("seed_id","none")
-          }
-          lSendUrl('POST', 'http://localhost:12121/picflow',formData,
-              function(response){
-                console.log(response['status']);
-
-                if(response['status']=="true"){
-                  var imglist = response['categorylist'];
-                  if(category_now != ""){
-                  $("#text").html("Info: category: "+category_now);
-                 }
-
-                  document.getElementById('card-columns').innerHTML="";
-                  for(var i=0;i<imglist.length;i++){
-                    document.getElementById('card-columns').innerHTML += '<img src=' + imglist
-                    [i] + '" style="width:100px;height:100px"' + ' />'
-                  }
-
-                }else{
-                  alert("not found pic")
-                }
-              }
-          )
-        }
-        //寻找相似图片
-        // if(similar_pic){
-        //   var formData = new FormData();
-        //   formData.append("similar_pic",similar_pic)
-        //   lSendUrl('POST', 'http://localhost:12121/similar_pic',formData,
-        //       function(response){
-        //         console.log(response['img_list']);
-        //         for(var i=0;i<100;i++){
-        //             document.getElementById('card-columns').innerHTML += '<img src=' + response['img_list'][i] + 'style="width:100px;height:100px"'+ 'class="card-img-top probootstrap-animate"' +' />'
-        //           }
-        //       }
-        //     )
-        // }
-      }
-
-      function query(){
-        if(is_draw == "yes"){
-          var Group_Number = document.getElementById("pic_flow").value;
-          // var Textbox_Orientation = $('input[name="radio_1"]:checked').val(); 
-          var Number_Index= $('input[name="radio_2"]:checked').val(); 
-          console.log(Number_Index);
-          draw_select(Group_Number,Number_Index);
-        }else{
-          if(category_now != ""){
-            var Group_Number = document.getElementById("pic_flow").value;
-            // var Textbox_Orientation = $('input[name="radio_1"]:checked').val();
-            var Number_Index= $('input[name="radio_2"]:checked').val(); 
-
-            var formData = new FormData();
-            formData.append("category_now",category_now)
-            formData.append("Group_Number",Group_Number)
-            // formData.append("Textbox_Orientation",Textbox_Orientation)
-            formData.append("Number_Index",Number_Index)
-            lSendUrl('POST', 'http://localhost:12121/query',formData,
-              function(response){
-                document.getElementById('card-columns').innerHTML="";
-                for(var i=0;i<response['pic_list'].length;i++){
-                  document.getElementById('card-columns').innerHTML += '<img src=' + response['pic_list'][i] + 'style="width:100px;height:100px"' + ' />'
-                }             
-              }
-            )
-
-            if(Group_Number != "" && Textbox_Orientation && Number_Index && category_now != ""){
-                  $("#text").html("Info: category: "+category_now+" Group_Number: "+Group_Number + " Textbox_Orientation: "+Textbox_Orientation+" Number_Index: "+Number_Index);
-            }
-            if(category_now != "" && Group_Number != "" && Textbox_Orientation){
-              $("#text").html("Info: category: "+category_now+" Group_Number: "+Group_Number + " Textbox_Orientation: "+Textbox_Orientation);
-            }
-            if(Group_Number != ""){
-              console.log(Group_Number)
-              $("#text").html("Info: category: "+category_now +" Group_Number: "+Group_Number);
-            }
-            if(category_now != ""){
-              $("#text").html("Info: category: "+category_now);
-            }
-          }
-        }
-
-      }
-
-
-    </script>
-
-
-<!-- 画图查询 -->
-<script type="text/javascript">
-      var canvas_width = document.body.clientWidth * 0.18;
-      var linewidth = canvas_width * 0.13
-      var myCanvas = "<canvas id='c1' style='border-style: inset' width='" + canvas_width + "px' height='"+ canvas_width + "px'></vanvas>";
-      document.getElementById('draw_query').insertAdjacentHTML("beforeBegin", myCanvas);
-
-  window.onload = function() {
-      var oC = document.getElementById('c1');
-  　　var oCG = oC.getContext('2d');
-      oCG.fillStyle = "#FFFFFF";
-      oCG.fillRect(0,0,canvas_width,canvas_width);
-
-      oCG.lineWidth=linewidth;
-  　　oC.onmousedown = function(ev) {
-      var ev = ev || window.event;
-      oCG.moveTo(ev.clientX-oC.offsetLeft,ev.clientY-oC.offsetTop); //ev.clientX-oC.offsetLeft,ev.clientY-oC.offsetTop鼠标在当前画布上X,Y坐标
-      document.onmousemove = function(ev) {
-          var ev = ev || window.event;//获取event对象
-          oCG.lineTo(ev.clientX-oC.offsetLeft,ev.clientY-oC.offsetTop);
-          oCG.stroke();
-          };
-      oC.onmouseup = function() {
-          is_draw ="yes";
-          document.onmousemove = null;
-          document.onmouseup = null;
-          };
-  　　　　};
-  };
-
-  // 清除canvas中元素
-  function clearCanvas(){
-      var c=document.getElementById("c1");
-      c.width=c.width;
-      var c = c.getContext('2d');
-      c.fillStyle =  "#FFFFFF";
-      c.fillRect(0,0,canvas_width,canvas_width);
-      c.lineWidth=linewidth;
-      is_draw ="no"
-  }
-
-   // 画图查找
-  function draw_select(Group_Number,Number_Index){
-    var cxt = document.getElementById('c1');
-  　var cxt = cxt.getContext('2d');
-    var data_width = parseInt(canvas_width)
-    var data = cxt.getImageData(0, 0, data_width, data_width).data
-
-    var formData = new FormData();
-    formData.append("data",data)
-    formData.append("Group_Number",Group_Number)
-    formData.append("Number_Index",Number_Index)
-    formData.append("Data_Width",data_width)
-
-    var fullQuality = document.getElementById('c1').toDataURL("image/jpeg", 1.0);
-
-    lSendUrl('POST', 'http://localhost:12121/draw_select',formData,
-        function(response){
-          document.getElementById('card-columns').innerHTML="";
-          console.log("data")
-          imglist = response['pic_list']
-          for(var i=0;i<response['pic_list'].length;i++){
-                  document.getElementById('card-columns').innerHTML += '<img src=' + response['pic_list'][i] + '" style="width:100px;height:100px"' +' />'
-                }
-          $("#text").html("Info: Here are 300 infographics");
-        }
-    )
-  }
-
-</script>
 
 <!-- 分页 -->
-<script type="text/javascript">
+<!--<script type="text/javascript">-->
 
-function goPage(pno,psize){
-  var itable = document.getElementById("idData");
-  var num = itable.rows.length;//表格所有行数(所有记录数)
-  console.log(num);
-  var totalPage = 0;//总页数
-  var pageSize = psize;//每页显示行数
-  //总共分几页
-  if(num/pageSize > parseInt(num/pageSize)){
-      totalPage=parseInt(num/pageSize)+1;
-    }else{
-      totalPage=parseInt(num/pageSize);
-    }
-  var currentPage = pno;//当前页数
-  var startRow = (currentPage - 1) * pageSize+1;//开始显示的行 31
-    var endRow = currentPage * pageSize;//结束显示的行  40
-    endRow = (endRow > num)? num : endRow;  //40
-    console.log(endRow);
-    //遍历显示数据实现分页
+    <!--var img_contain = document.getElementById('card-columns');-->
 
-  for(var i=1;i<(num+1);i++){
-    var irow = itable.rows[i-1];
-    if(i>=startRow && i<=endRow){
-      irow.style.display = "block";
-    }else{
-      irow.style.display = "none";
-    }
-  }
+<!--function goPage(pno,psize){-->
+  <!--var img_contain = $("#card-columns");-->
+  <!--// console.log(children("img")[0];-->
+  <!--var num = img_contain.children("img").length;//表格所有行数(所有记录数)-->
 
-  var tempStr = "共"+num+"条记录 分"+totalPage+"页 当前第"+currentPage+"页";
-  if(currentPage>1){
-    tempStr += "<a href=\"#\" onClick=\"goPage("+(1)+","+psize+")\">首页</a>";
-    tempStr += "<a href=\"#\" onClick=\"goPage("+(currentPage-1)+","+psize+")\"><上一页</a>"
-  }else{
-    tempStr += "首页";
-    tempStr += "<上一页";
-  }
-  if(currentPage<totalPage){
-    tempStr += "<a href=\"#\" onClick=\"goPage("+(currentPage+1)+","+psize+")\">下一页></a>";
-    tempStr += "<a href=\"#\" onClick=\"goPage("+(totalPage)+","+psize+")\">尾页</a>";
-  }else{
-    tempStr += "下一页>";
-    tempStr += "尾页";
-  }
-  document.getElementById("barcon").innerHTML = tempStr;
-}
-</script>
+  <!--var totalPage = 0;//总页数-->
+  <!--var pageSize = psize;//每页显示行数-->
+  <!--//总共分几页-->
+  <!--if(num/pageSize > parseInt(num/pageSize)){-->
+      <!--totalPage=parseInt(num/pageSize)+1;-->
+    <!--}else{-->
+      <!--totalPage=parseInt(num/pageSize);-->
+    <!--}-->
+  <!--var currentPage = pno;//当前页数-->
+  <!--var startRow = (currentPage - 1) * pageSize+1;//开始显示的行 31-->
+    <!--var endRow = currentPage * pageSize;//结束显示的行  40-->
+    <!--endRow = (endRow > num)? num : endRow;  //40-->
+    <!--//遍历显示数据实现分页-->
+  <!--for(var i=1;i<(num+1);i++){-->
+    <!--var irow = img_contain.children("img")[i-1];-->
+    <!--if(i>=startRow && i<=endRow){-->
+      <!--irow.style.display = "inline";-->
+    <!--}else{-->
+      <!--irow.style.display = "none";-->
+    <!--}-->
+  <!--}-->
+
+  <!--var tempStr = "Total results: "+num+" &nbsp Total Pages: "+totalPage+"&nbsp &nbsp Current Page: "+currentPage+"&nbsp&nbsp&nbsp&nbsp";-->
+  <!--if(currentPage>1){-->
+    <!--tempStr += "<a  href=\"#\" onClick=\"goPage("+(1)+","+psize+")\">&nbsp First Page</a>";-->
+    <!--tempStr += "<a href=\"#\" onClick=\"goPage("+(currentPage-1)+","+psize+")\">&nbsp < previcous &nbsp</a>"-->
+  <!--}else{-->
+    <!--tempStr += "&nbsp First Page";-->
+    <!--tempStr += "&nbsp <previous &nbsp";-->
+  <!--}-->
+  <!--if(currentPage<totalPage){-->
+    <!--tempStr += "<a href=\"#\" onClick=\"goPage("+(currentPage+1)+","+psize+")\">&nbsp next> &nbsp&nbsp</a>";-->
+    <!--tempStr += "<a href=\"#\" onClick=\"goPage("+(totalPage)+","+psize+")\">&nbsp Last Page</a>";-->
+  <!--}else{-->
+    <!--tempStr += "&nbsp next> &nbsp&nbsp";-->
+    <!--tempStr += "&nbsp Last Page";-->
+  <!--}-->
+    <!--document.getElementById("page").innerHTML = tempStr;-->
+<!--}-->
+<!--</script>-->
 
     
 </body>

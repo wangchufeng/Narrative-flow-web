@@ -1,11 +1,13 @@
 import tornado.web
 import glob
+
+
 class ShowClickPicHandler(tornado.web.RequestHandler):
     def post(self):
         file_name = self.get_argument("file_name")
         file_name = file_name.split("?")[0].split("/")[-1][0:-4]
         if file_name[-3:] != "jpg":
-            while (file_name[0] == "0"):
+            while file_name[0] == "0":
                 file_name = file_name[1:]
         categorylist = glob.glob("./template/data/category_txt/*.txt")
         print(file_name)

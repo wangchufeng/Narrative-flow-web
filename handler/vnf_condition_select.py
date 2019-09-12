@@ -1,4 +1,6 @@
 import tornado.web
+
+
 class QueryHandler(tornado.web.RequestHandler):
     def post(self):
         category_now = self.get_argument("category_now")
@@ -11,7 +13,6 @@ class QueryHandler(tornado.web.RequestHandler):
         f.close()
 
         if Group_Number != "":
-            print("ffffff")
             for i in img_list:
                 img_name = i.split("\n")[0]
                 if img_name[-1] != "g":
@@ -74,6 +75,4 @@ class QueryHandler(tornado.web.RequestHandler):
             img = "template/data/origin_pic/" + img_name + ".jpg"
             img = self.static_url(img)
             result.append(img)
-
-        print(len(result))
         self.write({"status": "ok", "pic_list": result})

@@ -79,29 +79,35 @@ class ShowDrawSelectHandler(tornado.web.RequestHandler):
         im = im.resize((100, 100))
         gray = im.convert('L')
         gray.save("1.jpg")
-        pic = np.array(gray)
-        im.show('i.jpg')
+
         im_hash = self.read_vnf_flow_hash('1.jpg')
+
         distance = []
         flow_name = []
         flow_path = "./template/data/flow_pic/*_flow.png"
         for i in glob.glob(flow_path):
             flow_name.append(i)
-        print(len(flow_name))
         for i in flow_name:
             i = self.read_vnf_flow_hash(i)
             distance.append(self.hammingDistance(i, im_hash))
         flow_index = list(self.similarest_pic(distance))
-        for i in flow_index[:3]:
-            print(flow_name[i])
-            sim_pic = Image.open(flow_name[i])
-            sim_pic.show()
+        pic_list = []
+        for i in flow_index:
+            flow_name[i] = flow_name[i].replace("_flow.png", ".jpg")
+            flow_name[i] = flow_name[i].replace("flow_pic", "origin_pic")
+            flow_name[i] = flow_name[i].replace("\\", "/")
+            flow_name[i] = self.static_url(flow_name[i])
+            pic_list.append(flow_name[i])
 
+            # sim_pic = Image.open(flow_name[i])
+            # sim_pic.show()
+
+        # pic = np.array(gray)
         # self.read_csv(pic)
         # pic_list = self.compute_pca(Group_Number,Number_Index)
 
-        # self.write({"status": "ok", "pic_list": pic_list})
-        self.write({"status": "ok"})
+        self.write({"status": "ok", "pic_list": pic_list})
+        # self.write({"status": "ok"})
 
     def hammingDistance(self, x, y):
         x = int(str(x), 16)
@@ -120,7 +126,7 @@ class ShowDrawSelectHandler(tornado.web.RequestHandler):
 
     # 求出相似最高的前x个
     def similarest_pic(self, n):
-        similar_n = 20
+        similar_n = 300
         # max_similar = list(heapq.nlargest(similar_n, n))
         # for similar_n in max_similar:
         #     _temp_index = [i for i, x in enumerate(max_similar) if i == similar_n]
@@ -187,7 +193,6 @@ class ShowDrawSelectHandler(tornado.web.RequestHandler):
                     seed_number.append(g_line)
                 seed_number = len(set(seed_number)) - 1
                 if int(Group_Number) - seed_number != 0:
-                    print("Ffafa")
                     continue
 
             shaobin = 0

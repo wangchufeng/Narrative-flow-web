@@ -1,6 +1,6 @@
 img {width: 135px;
     height: 135px;
-    margin:1px;
+    margin:2px;
     border: solid;
     border-width: 1px; 
 }
@@ -55,16 +55,17 @@ display: inline-block;
 
 font-size: 0.7vw;
 
-margin: 0px 0px 30px, 0px;
+margin: 0px 0px 0px 0px;
 
 cursor: pointer;
 
 }
 .bar {
-position: fixed; top: 0; left: 0; right: 0; /* 决定了搜索框置顶 */
-height: 44px; padding: 0 10px;
-background-color: #fff; opacity: 0.8; /* 搜索框半透明效果 */
-z-index: 10;
+    position: fixed; top: 0;  right: 0; /* 决定了搜索框置顶 */
+    height: 44px; padding: 0 10px;
+    background-color: #fff; opacity: 0.8; /* 搜索框半透明效果 */
+    z-index: 10;
+    width: 77%;
 }
 
 .bar form {
@@ -105,10 +106,16 @@ line-height: 40px;
 vertical-align: top;
 }
 .font{
-font-size: 19px;
+font-size: 14px;
 }
 .VNF_Class{
 width: 12%;
 height: 12%;
 }
 
+#page{
+    position: absolute;
+    right: 5%;
+    line-height: 60px ;
+
+}
