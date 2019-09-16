@@ -32,7 +32,7 @@ class QueryHandler(tornado.web.RequestHandler):
                     img_list.remove(i)  ##  has "\n"
 
         new_list = []
-        if Number_Index == "1":
+        if Number_Index == "yes":
             for i in img_list:
                 img_name = i.split("\n")[0]
                 if img_name[-1] != "g":
@@ -48,7 +48,7 @@ class QueryHandler(tornado.web.RequestHandler):
                             break
             img_list = new_list
 
-        if Number_Index == "2":
+        if Number_Index == "no":
             for i in img_list:
                 img_name = i.split("\n")[0]
                 if img_name[-1] != "g":

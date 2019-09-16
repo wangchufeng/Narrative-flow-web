@@ -23,19 +23,19 @@
       <!--<a href="#" class="probootstrap-close-menu js-probootstrap-close-menu d-md-none"><span class="oi oi-arrow-left"></span> Close</a>-->
       <div id = "aside_content" class="probootstrap-site-logo probootstrap-animate" data-animate-effect="fadeInLeft">
 
-        <p class="mb-2 d-block probootstrap-logo" style="font-size:2vw;line-height: 3vh">VNF-Explorer</p>
+        <p class="mb-2 d-block probootstrap-logo" style="font-size:2vw;line-height: 5vh">VNF-Explorer</p>
         <p style="font-size:1.2vh; " > Query Infographics by Visual Narrative Flow </p>
 
         <!--<br style="line-height: vh">-->
 
-        <button onclick="showallpic()">show all infographics</button>
-        <button id="buttontonext" onClick="clearCanvas()"> Reset </button>
 
-        <br style="line-height: 6vh;"/>
+
+
+        <!--<br style="line-height: 1vh;"/>-->
 
          <!-- <canvas id="c1" style="border-style: inset" ></canvas> -->
-        <button id="draw_query" onClick="draw_select()" > Query </button>
-        <br style="line-height: 6vh"/>
+        <button id="draw_query" onClick="draw_select()" style="display: none;"> Query </button>
+        <br style="line-height: 2vh"/>
         
         <span class="font" style="font-size: 0.9vw">VNF Class: &nbsp;</span>
         <br/>
@@ -50,21 +50,27 @@
             <img class = "VNF_Class" id = "landscape" src="{{static_url('template/icon/landscape.png')}}" onClick="select_pic('landscape')">
             <img class = "VNF_Class" id = "upladder" src="{{static_url('template/icon/upladder.png')}}" onClick="select_pic('upladder')">
             <img class = "VNF_Class" id = "pulse" src="{{static_url('template/icon/pulse.png')}}" onClick="select_pic('pulse')">
+
             <br/>
-            <img class = "VNF_Class" id = "leftarm" src="{{static_url('template/icon/leftarm.png')}}" onClick="select_pic('leftarm')">
+            <!--<img class = "VNF_Class" id = "leftarm" src="{{static_url('template/icon/leftarm.png')}}" onClick="select_pic('leftarm')">-->
             <img class = "VNF_Class" id = "portrait" src="{{static_url('template/icon/portrait.png')}}" onClick="select_pic('portrait')">
-            <img class = "VNF_Class" id = "rightarm" src="{{static_url('template/icon/rightarm.png')}}" onClick="select_pic('rightarm')">
+            <!--<img class = "VNF_Class" id = "rightarm" src="{{static_url('template/icon/rightarm.png')}}" onClick="select_pic('rightarm')">-->
             <img class = "VNF_Class" id = "screw" src="{{static_url('template/icon/screw.png')}}" onClick="select_pic('screw')">
+          <img class = "VNF_Class" id = "all" src="{{static_url('template/icon/all.png')}}" onClick="showallpic()">
+            <!--<button onclick="">show all  </button>-->
             <br style="line-height: 6vh;"/>
-      <span class="font" style="font-size: 0.9vw">Visual Group Number: &nbsp;<input type="text" style="font-size: 0.9vw;"  size="8px" id="pic_flow" placeholder="" /></span>
+      <span class="font" style="font-size: 0.9vw">Visual Group Number: &nbsp;<input type="text" style="font-size: 0.9vw;"  size="8px" id="pic_flow" value="*" /></span>
       
       <br style="line-height: 2vh;"/>
       
-      <span class="font" style="font-size: 0.9vw">Number Index: &nbsp;</span>
-      <input type="radio" name="radio_2" value="1"> &nbsp;<span class="font" style="font-size: 0.9vw">yes </span>&nbsp;
-      <input type="radio" name="radio_2" value="2"> &nbsp;<span class="font" style="font-size: 0.9vw">no </span>&nbsp;
+        <span class="font" style="font-size: 0.9vw">Number Index: &nbsp;</span>
+          <input type="radio" name="radio_2" value="all"  checked/> &nbsp;<span class="font" style="font-size: 0.9vw">all </span>&nbsp;
+        <input type="radio" name="radio_2" value="yes"> &nbsp;<span class="font" style="font-size: 0.9vw">yes </span>&nbsp;
+         <input type="radio" name="radio_2" value="no"> &nbsp;<span class="font" style="font-size: 0.9vw">no </span>&nbsp;
+
       <br style="line-height: 4vh;"/>
-      <button id="buttontonext" onClick="query()"> Query </button>
+        <button id="buttontonext" onClick="query()"> Query </button>
+        <button id="reset" onClick="clearCanvas()"> Reset </button>
       </div>
     </div>
     </aside>
@@ -96,7 +102,8 @@
     <script src="{{static_url('template/js/imagesloaded.pkgd.min.js')}}"></script>
     <script src="{{static_url('template/js/main.js')}}"></script>
     <script type="text/javascript" src="{{static_url('lib/lurlquery.js')}}"></script>
-    <script src="{{static_url('template/js/custom.js')}}" type="text/javascript"></script>
+    <!--<script src="{{static_url('template/js/custom.js')}}" type="text/javascript"></script>-->
+    <script src="{{static_url('template/js/conditional_search.js')}}" type="text/javascript"></script>
 
 
 <!-- 分页 -->

@@ -93,7 +93,7 @@ function showallpic(){
 
 
 
-// 在show all infographics后，点击图片查找相似图片
+// 点击图片查找相似图片
 function AddImgClickEvent(){
     var objs = document.getElementById("card-columns").getElementsByTagName("img")
     for(var i=0;i<objs.length;i++){
@@ -151,7 +151,6 @@ function select_pic(pic_flow){
         lSendUrl('POST', 'http://localhost:12121/picflow',formData,
             function(response){
                 console.log(response['status']);
-
                 if(response['status']=="true"){
                     // var imglist = response['categorylist'];
                     initialize_page()
@@ -161,17 +160,9 @@ function select_pic(pic_flow){
                     if(category_now != ""){
                         $("#text").html("Info: category: "+category_now);
                     }
-
-                    // document.getElementById('card-columns').innerHTML="";
-                    // for(var i=0;i<imglist.length;i++){
-                    //     document.getElementById('card-columns').innerHTML += '<img src=' + imglist
-                    //         [i] + '" style="width:6vw;height:6vw"' + ' />'
-                    // }
-
                 }else{
                     alert("not found pic")
                 }
-                // goPage(1,96);
             }
         )
     }
@@ -194,9 +185,11 @@ function select_pic(pic_flow){
 function query(){
     if(is_draw == "yes"){
         var Group_Number = document.getElementById("pic_flow").value;
+
         // var Textbox_Orientation = $('input[name="radio_1"]:checked').val();
         var Number_Index= $('input[name="radio_2"]:checked').val();
         console.log(Number_Index);
+        console.log(Group_Number);
         draw_select(Group_Number,Number_Index);
     }else{
         if(category_now != ""){
@@ -286,33 +279,33 @@ function clearCanvas(){
 }
 
 // 画图查找
-function draw_select(Group_Number,Number_Index){
-    var cxt = document.getElementById('c1');
-    var cxt = cxt.getContext('2d');
-    var data_width = parseInt(canvas_width)
-    var data = cxt.getImageData(0, 0, data_width, data_width).data
-
-    var formData = new FormData();
-    formData.append("data",data)
-    formData.append("Group_Number",Group_Number)
-    formData.append("Number_Index",Number_Index)
-    formData.append("Data_Width",data_width)
-
-    lSendUrl('POST', 'http://localhost:12121/draw_select',formData,
-        function(response){
-            category_now = "draw"
-            document.getElementById('card-columns').innerHTML="";
-            initialize_page()
-            imglist = response['pic_list'];
-            pic_n = 0;
-            pinterest(imglist, pic_n, imgload,"draw")
-
-            // imglist = response['pic_list']
-            // for(var i=0;i<response['pic_list'].length;i++){
-            //     document.getElementById('card-columns').innerHTML += '<img src=' + response['pic_list'][i] + '" style="width:6vw;height:6vw"' +' />'
-            // }
-            $("#text").html("Info: Here are 300 infographics");
-            // goPage(1,96);
-        }
-    )
-}
+// function draw_select(Group_Number,Number_Index){
+//     var cxt = document.getElementById('c1');
+//     var cxt = cxt.getContext('2d');
+//     var data_width = parseInt(canvas_width)
+//     var data = cxt.getImageData(0, 0, data_width, data_width).data
+//
+//     var formData = new FormData();
+//     formData.append("data",data)
+//     formData.append("Group_Number",Group_Number)
+//     formData.append("Number_Index",Number_Index)
+//     formData.append("Data_Width",data_width)
+//
+//     lSendUrl('POST', 'http://localhost:12121/draw_select',formData,
+//         function(response){
+//             category_now = "draw"
+//             document.getElementById('card-columns').innerHTML="";
+//             initialize_page()
+//             imglist = response['pic_list'];
+//             pic_n = 0;
+//             pinterest(imglist, pic_n, imgload,"draw")
+//
+//             // imglist = response['pic_list']
+//             // for(var i=0;i<response['pic_list'].length;i++){
+//             //     document.getElementById('card-columns').innerHTML += '<img src=' + response['pic_list'][i] + '" style="width:6vw;height:6vw"' +' />'
+//             // }
+//             $("#text").html("Info: Here are 300 infographics");
+//             // goPage(1,96);
+//         }
+//     )
+// }

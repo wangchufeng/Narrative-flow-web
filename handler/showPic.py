@@ -1,8 +1,10 @@
 import tornado.web
-# from sklearn.decomposition import PCA
+
+
 class ShowPicHandler(tornado.web.RequestHandler):
     def get(self):
         self.render("index.html")
+
 
 class ShowAllPicHandler(tornado.web.RequestHandler):
     def post(self):
@@ -14,7 +16,8 @@ class ShowAllPicHandler(tornado.web.RequestHandler):
                 pic = line.split("\n")[0]
                 pic = self.static_url(pic)
                 imglist.append(pic)
-        self.write({"status":"success load","imglist":imglist})
+        self.write({"status": "success load", "imglist": imglist})
+
 
 class ShowOnePicHandler(tornado.web.RequestHandler):
     def post(self):
