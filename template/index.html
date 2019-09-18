@@ -26,14 +26,6 @@
         <p class="mb-2 d-block probootstrap-logo" style="font-size:2vw;line-height: 5vh">VNF-Explorer</p>
         <p style="font-size:1.2vh; " > Query Infographics by Visual Narrative Flow </p>
 
-        <!--<br style="line-height: vh">-->
-
-
-
-
-        <!--<br style="line-height: 1vh;"/>-->
-
-         <!-- <canvas id="c1" style="border-style: inset" ></canvas> -->
         <button id="draw_query" onClick="draw_select()" style="display: none;"> Query </button>
         <br style="line-height: 2vh"/>
         
@@ -46,31 +38,31 @@
             <img class = "VNF_Class" id = "bowl" src="{{static_url('template/icon/bowl.png')}}" onClick="select_pic('bowl')">
             <img class = "VNF_Class" id = "star" src="{{static_url('template/icon/star.png')}}" onClick="select_pic('star')">
             <br/>
-            <img class = "VNF_Class" id = "downladder" src="{{static_url('template/icon/downladder.png')}}" onClick="select_pic('downladder')">
             <img class = "VNF_Class" id = "landscape" src="{{static_url('template/icon/landscape.png')}}" onClick="select_pic('landscape')">
-            <img class = "VNF_Class" id = "upladder" src="{{static_url('template/icon/upladder.png')}}" onClick="select_pic('upladder')">
             <img class = "VNF_Class" id = "pulse" src="{{static_url('template/icon/pulse.png')}}" onClick="select_pic('pulse')">
-
+            <img class = "VNF_Class" id = "downladder" src="{{static_url('template/icon/downladder.png')}}" onClick="select_pic('downladder')">
+            <img class = "VNF_Class" id = "upladder" src="{{static_url('template/icon/upladder.png')}}" onClick="select_pic('upladder')">
             <br/>
             <!--<img class = "VNF_Class" id = "leftarm" src="{{static_url('template/icon/leftarm.png')}}" onClick="select_pic('leftarm')">-->
             <img class = "VNF_Class" id = "portrait" src="{{static_url('template/icon/portrait.png')}}" onClick="select_pic('portrait')">
             <!--<img class = "VNF_Class" id = "rightarm" src="{{static_url('template/icon/rightarm.png')}}" onClick="select_pic('rightarm')">-->
             <img class = "VNF_Class" id = "screw" src="{{static_url('template/icon/screw.png')}}" onClick="select_pic('screw')">
-          <img class = "VNF_Class" id = "all" src="{{static_url('template/icon/all.png')}}" onClick="showallpic()">
+          <img class = "VNF_Class" id = "all" src="{{static_url('template/icon/all.png')}}" onClick="select_pic('all')">
             <!--<button onclick="">show all  </button>-->
             <br style="line-height: 6vh;"/>
+          <hr style="margin-right: 15%; height:2px;border:none;border-top:2px dotted #185598;" />
       <span class="font" style="font-size: 0.9vw">Visual Group Number: &nbsp;<input type="text" style="font-size: 0.9vw;"  size="8px" id="pic_flow" value="*" /></span>
       
       <br style="line-height: 2vh;"/>
-      
+
         <span class="font" style="font-size: 0.9vw">Number Index: &nbsp;</span>
-          <input type="radio" name="radio_2" value="all"  checked/> &nbsp;<span class="font" style="font-size: 0.9vw">all </span>&nbsp;
+          <input type="radio" id="default_checked" name="radio_2" value="all"  checked/> &nbsp;<span class="font" style="font-size: 0.9vw">all </span>&nbsp;
         <input type="radio" name="radio_2" value="yes"> &nbsp;<span class="font" style="font-size: 0.9vw">yes </span>&nbsp;
          <input type="radio" name="radio_2" value="no"> &nbsp;<span class="font" style="font-size: 0.9vw">no </span>&nbsp;
 
       <br style="line-height: 4vh;"/>
         <button id="buttontonext" onClick="query()"> Query </button>
-        <button id="reset" onClick="clearCanvas()"> Reset </button>
+        <button id="reset" onClick="reset_all()"> Reset </button>
       </div>
     </div>
     </aside>

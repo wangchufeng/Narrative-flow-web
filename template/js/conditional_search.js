@@ -1,15 +1,28 @@
 imglist = [];  // 目前显示的图片
 category_now="all";  // 目前选中的类别
 is_draw = "no";       // 是否画了图
-pic_n  = 0   //  瀑布流加载图片数量
-load_new_img = 50  // 每次加载新的数量
+pic_n  = 50;   //  瀑布流首次加载图片数量
+load_new_img = 5;  // 每次加载新的数量
+query_time = 0;  // 查询时候的时间
+
+var formdata = new FormData();
+initialize_page();
+lSendUrl('POST', 'http://localhost:12121/showallpic',formdata,
+    function(response){
+        imglist = response['imglist'];
+        pic_n = 50;
+        query_time = (new Date()).getTime();
+        pinterest(imglist, pic_n, imgload, query_time);
+    }
+);
+
 
 $(window).scroll(function(){
     var scrollTop = $(this).scrollTop();
     var scrollHeight = $(document).height();
     var windowHeight = $(this).height();
     if(scrollTop + windowHeight + 50 > scrollHeight){
-        pinterest(imglist, pic_n, imgload, category_now)
+        pinterest_second(imglist, pic_n, imgload, query_time)
         pic_n += load_new_img
     }
 });
@@ -26,16 +39,27 @@ function initialize_page(){
 }
 
 // 瀑布流
-function pinterest(imglist, pic_n, callback, category=""){
+function pinterest(imglist, pic_n, callback, query=""){
+    for(var i=0; i<pic_n; i++){
+        let img_url = imglist[i] + Date.parse(new Date());
+        let img = new Image();
+        img.src = img_url;
+        let this_query_time = query
+        img.onload = function () {
+            if (this_query_time != query_time){return;}
+            callback.call(img)
+        };
+    }
+}
+
+function pinterest_second(imglist, pic_n, callback, query=""){
     for(var i=pic_n; i<(pic_n + load_new_img ); i++){
         let img_url = imglist[i] + Date.parse(new Date());
         let img = new Image();
         img.src = img_url;
-        let this_category = category
-        console.log(category_now)
-
+        let this_query_time = query
         img.onload = function () {
-            if (this_category != category_now){return;}
+            if (this_query_time != query_time){return;}
             callback.call(img)
         };
     }
@@ -68,53 +92,6 @@ function find_lowest_column() {
     return index
 }
 
-// 点击图片查找相似图片
-function AddImgClickEvent(){
-    var objs = document.getElementById("card-columns").getElementsByTagName("img")
-    for(var i=0;i<objs.length;i++){
-        objs[i].onclick=function(){
-            var width = this.style.width;
-            var height = this.style.height;
-
-            var file_name = this.src;
-            var formData = new FormData();
-            formData.append("file_name",file_name);
-            initialize_page();
-            console.log(this.style.width);
-            document.getElementById('column_0').innerHTML +='<img id="first" style="flow:left; border:solid 5px red; width:'+width+';height:'+height+';" src=' + file_name +' />'
-            lSendUrl('POST', 'http://localhost:12121/click_pic',formData,
-                function(response){
-
-                    imglist = response['pic_list'];
-                    pic_n = 0;
-                    category_now = "click_similar"
-                    pinterest(imglist, pic_n, imgload, "click_similar");
-                    // for(var i=0;i<response['pic_list'].length;i++){
-                    //     document.getElementById('card-columns').innerHTML += '<img src=' + response['pic_list'][i] + '" style="width:6vw;height:6vw"' +' />'
-                    // }
-                    $("#text").html("Info: The following is a similar infographics of the first infographics");
-                }
-            )
-        }
-    }
-}
-
-function select_pic(pic_flow) {
-    //  清除页面元素
-    document.getElementById('card-columns').innerHTML = "";
-    var seed_id = "null";
-    var pic_flow = pic_flow;
-    category_now = pic_flow;
-    var vnf_class = document.getElementsByClassName("VNF_Class")
-    for (i = 0; i < vnf_class.length; i++) {
-        vnf_class[i].style = "border: solid 1px black; width: 12%; height: 12%";
-    }
-    document.getElementById(pic_flow).style = "border: solid 5px red; width: 12%; height: 12%";
-    console.log(pic_flow)
-}
-
-
-
 //  画图
 var canvas_width = document.body.clientWidth * 0.18;
 var linewidth = canvas_width * 0.13
@@ -135,16 +112,112 @@ window.onload = function() {
             var ev = ev || window.event;//获取event对象
             oCG.lineTo(ev.clientX-oC.offsetLeft,ev.clientY-oC.offsetTop);
             oCG.stroke();
+            var vnf_class = document.getElementsByClassName("VNF_Class")
+            for (i = 0; i < vnf_class.length; i++) {
+                vnf_class[i].style = "border: solid 1px black; width: 12%; height: 12%";
+            }
+            category_now = "all"
         };
         oC.onmouseup = function() {
             is_draw ="yes";
+
             document.onmousemove = null;
             document.onmouseup = null;
         };
     };
 };
 
+
+// 点击图片查找相似图片
+function AddImgClickEvent(){
+    var objs = document.getElementById("card-columns").getElementsByTagName("img")
+    for(var i=0;i<objs.length;i++){
+        objs[i].onclick=function(){
+            var width = this.style.width;
+            var height = this.style.height;
+
+            var file_name = this.src;
+            var formData = new FormData();
+            formData.append("file_name",file_name);
+            initialize_page();
+
+            document.getElementById('column_0').innerHTML +='<img id="first" style="flow:left; border:solid 5px red; width:'+width+';height:'+height+';" src=' + file_name +' />'
+            lSendUrl('POST', 'http://localhost:12121/click_pic',formData,
+                function(response){
+                    imglist = response['pic_list'];
+                    pic_n = 50;
+                    query_time = (new Date()).getTime()
+                    pinterest(imglist, pic_n, imgload, query_time);
+                    // $("#text").html("Info: The following is a similar infographics of the first infographics");
+                }
+            )
+        }
+    }
+}
+
+
+function select_pic(pic_flow) {
+    //  清除页面元素
+    document.getElementById('card-columns').innerHTML = "";
+    clearCanvas()
+    var pic_flow = pic_flow;
+    category_now = pic_flow;
+    var vnf_class = document.getElementsByClassName("VNF_Class")
+    for (i = 0; i < vnf_class.length; i++) {
+        vnf_class[i].style = "border: solid 1px black; width: 12%; height: 12%";
+    }
+    document.getElementById(pic_flow).style = "border: solid 5px red; width: 12%; height: 12%";
+}
+
+
+function query(){
+    query_time = (new Date()).getTime()
+    var group_number = document.getElementById("pic_flow").value;
+    var number_index = $('input[name="radio_2"]:checked').val();
+    var category = category_now
+    var formData = new FormData();
+
+    if(is_draw == "yes"){
+        var cxt = document.getElementById('c1');
+        var cxt = cxt.getContext('2d');
+        var data_width = parseInt(canvas_width)
+        var sketch_data = cxt.getImageData(0, 0, data_width, data_width).data
+        formData.append("data_width",data_width)
+    }else {
+        var sketch_data = "null"
+        formData.append("data_width","null")
+    }
+
+    formData.append("category",category)
+    formData.append("group_number",group_number)
+    formData.append("number_index",number_index)
+    formData.append("sketch_data",sketch_data)
+
+    lSendUrl('POST', 'http://localhost:12121/conditional_query',formData,
+        function(response){
+            initialize_page()
+            imglist = response['imglist'];
+            console.log(imglist.length)
+            pinterest(imglist, pic_n,imgload, query_time)
+            pic_n = 50;
+        }
+    )
+}
+
 // 清除canvas中元素
+function reset_all() {
+    console.log("s")
+    clearCanvas()
+    var vnf_class = document.getElementsByClassName("VNF_Class")
+    for (i = 0; i < vnf_class.length; i++) {
+        vnf_class[i].style = "border: solid 1px black; width: 12%; height: 12%";
+    }
+    category_now = "all"
+
+    document.getElementById("pic_flow").value = "*";
+    document.getElementsByName("radio_2")[0].checked = "checked";
+}
+
 function clearCanvas(){
     var c=document.getElementById("c1");
     c.width=c.width;
@@ -153,4 +226,7 @@ function clearCanvas(){
     c.fillRect(0,0,canvas_width,canvas_width);
     c.lineWidth=linewidth;
     is_draw ="no"
+
+
+
 }

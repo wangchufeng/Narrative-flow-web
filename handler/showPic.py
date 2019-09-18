@@ -6,6 +6,7 @@ class ShowPicHandler(tornado.web.RequestHandler):
         self.render("index.html")
 
 
+
 class ShowAllPicHandler(tornado.web.RequestHandler):
     def post(self):
         imglist = []

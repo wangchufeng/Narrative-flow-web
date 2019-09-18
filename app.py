@@ -5,6 +5,7 @@ from handler import draw_select
 from handler import click_similar
 from handler import click_vnf
 from handler import vnf_condition_select
+from handler import conditional_search
 URL = [
     tornado.web.URLSpec("/", showPic.ShowPicHandler),
     tornado.web.URLSpec("/showallpic", showPic.ShowAllPicHandler),
@@ -14,6 +15,7 @@ URL = [
     tornado.web.URLSpec("/draw_select", draw_select.ShowDrawSelectHandler),
     tornado.web.URLSpec("/click_pic", click_similar.ShowClickPicHandler),
     tornado.web.URLSpec("/query", vnf_condition_select.QueryHandler),
+    tornado.web.URLSpec("/conditional_query", conditional_search.ConditionalSearch),
 ]
 
 

@@ -38,28 +38,23 @@ br{
 }
 
 button {
-
-background-color: #4CAF50;
-
-border: none;
-
-color: white;
-
-padding: 10px 16px;
-
-text-align: center;
-
-text-decoration: none;
-
-display: inline-block;
-
-font-size: 0.7vw;
-
-margin: 0px 0px 0px 0px;
-
-cursor: pointer;
-
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 10px 16px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 0.7vw;
+    margin: 0px 0px 0px 0px;
+    cursor: pointer;
+    transition-duration: 0.4s;
 }
+button:hover{
+    /*background-color: #4CAF50; !* Green *!*/
+    color: black;
+}
+
 .bar {
     position: fixed; top: 0;  right: 0; /* 决定了搜索框置顶 */
     height: 44px; padding: 0 10px;
